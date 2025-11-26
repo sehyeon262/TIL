@@ -1,0 +1,24 @@
+# Python
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+
+# VSCode
+.vscode/
+
+# IDEA, PyCharm
+.idea/
+*.iml
+
+# Mac
+.DS_Store
+
+# env
+env/
+venv/
+
+# 로그
+*.log
+
+
