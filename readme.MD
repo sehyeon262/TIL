@@ -1,1 +1,4 @@
-# SSAFY 저장소
+# 🗂️ SSAFY
+## 카테고리
+- Algorithm : 알고리즘 연습 + 스터디 
+- Java : 자바 기본
