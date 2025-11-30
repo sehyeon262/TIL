@@ -23,7 +23,7 @@
     const app = createApp({
       setup() {
         const reactiveValue = ref(0)
-        let normalValue = 0
+        let normalValue = 0  // 실시간 변경사항 반영 X
         const updateValues = function () {
           reactiveValue.value++
           normalValue++
