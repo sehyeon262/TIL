@@ -1,8 +1,17 @@
 
-# 📜 SFC (SingleFileComponent) ]
+# 📘 목차 (Table of Contents)
+| 대분류                        | 소분류                                                                                                                                                                 |
+| -------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| **Single-File Components** | - Component <br> - SFC 구성요소                                                                                                                                         |
+| **SFC Build Tool**         | - Vite <br> - Vue Project <br> - NPM <br> - 모듈과 번들러                                                                                                                 |
+| **Vue Project 구조**         | - 기본 구조 <br> - 패키지 관리                                                                                                                                               |
+| **Vue Component 활용**       | **추가 주제** <br> - Virtual DOM <br> - Composition API & Option API <br><br> **참고** <br> - Single Root Element <br> - CSS scoped <br> - Scaffolding <br> - 패키지 관리 주의사항 |
 
 
 ---
+
+
+# < Single File Component >
 
 
 # ✅ Componenet
@@ -28,7 +37,7 @@
           ├── <Item> x3
 ```
 
-> ### UI (User Interface): 사용자가 마주하는 화면의 시각적 디자인
+> 💡 **UI (User Interface)**: 사용자가 마주하는 화면의 시각적 디자인
 
 
 ## Component 예시
@@ -54,18 +63,22 @@
 - Vue SFC는 HTML, CSS 및 JavaScript를 단일 파일로 합친 것
 - `<template>`, `<script>` 및 `<style>` 블록은 하나의 파일에서 컴포넌트의 뷰, 로직 및 스타일을 독립적으로 배치
 
+### 🔵 기본적인 SFC 구조
 ```vue
 <!-- MyComponent.vue -->
 
+<!-- 1. template => HTML 작성 -->
 <template>
   <div class="greeting">{{ msg }}</div>
 </template>
 
+<!-- 2. script => 로직(JS) 영역 -->
 <script setup>
 import { ref } from 'vue'
 const msg = ref('Hello World!')
 </script>
 
+<!-- 3. style => CSS 작성 -->
 <style scoped>
 .greeting {
   color: red;
@@ -103,9 +116,9 @@ template → script → style 순서로 작성
 ```
 
 
-## `<template>` 블록
+## 1️⃣ `<template>` 블록
 
-- 각 *.vue 파일은 최상위 `<template>` 블록을 하나만 포함할 수 있음
+- **각 *.vue 파일은 최상위 `<template>` 블록을 하나만** 포함할 수 있음
 
 ```php
 <template>
@@ -125,9 +138,9 @@ template → script → style 순서로 작성
 ```
 
 
-## `<script setup>` 블록
+## 2️⃣ `<script setup>` 블록
 
-- 각 *.vue 파일은 `<script setup>` 블록을 하나만 포함할 수 있음 (일반 `<script>` 제외)
+- **각 *.vue 파일은 *`<script setup>` 블록을 하나만** 포함할 수 있음 (일반 `<script>` 제외)
 
 - 컴포넌트의 setup() 함수로 사용되며 컴포넌트의 각 인스턴스에 대해 실행
 
@@ -151,7 +164,7 @@ template → script → style 순서로 작성
 ```
 
 
-## `<style scoped>` 블록
+## 3️⃣ `<style scoped>` 블록
 
 - *.vue 파일에는 여러 `<style>` 태그가 포함될 수 있음
 
@@ -167,7 +180,7 @@ template → script → style 순서로 작성
   const msg = ref('Hello World!')
 </script>
 
-<style scoped>
+<style scoped>  
   .greeting {
     color: red;
   }
@@ -183,26 +196,9 @@ template → script → style 순서로 작성
 
 => 실제 프로젝트에서는 Vite와 같은 공식 빌드(build) 도구를 사용
 
-### 빌드(build): 개발자가 쓴 소스 코드를 실행 가능한 파일로 변환하는 과정
+> 💡 **빌드(build)**: 개발자가 쓴 소스 코드를 실행 가능한 파일로 변환하는 과정
 
 ※ 바로 이후에 자세히 진행
-
-```php
-<template>
-  <div class="greeting">{{ msg }}</div>
-</template>
-
-<script setup>
-  import { ref } from 'vue'
-  const msg = ref('Hello World!')
-</script>
-
-<style>
-  .greeting {
-    color: red;
-  }
-</style>
-```
 
 
 ---
@@ -210,13 +206,13 @@ template → script → style 순서로 작성
 
 # < SFC build tool >
 
-# ✅ Vite
+# ✅ Vite (비트)
 
 ## 정의
 - 프론트 엔드 개발 도구로써 빠른 개발 환경을 위한 빌드 도구와 개발 서버를 제공
 
 ```markdown
-- Vite는 Vue 프론트엔드 개발을 위한 빌드 도구입니다.
+- Vite는 Vue 프론트엔드 개발을 위한 **빌드** 도구입니다.
 
 - 개발 서버의 시작 속도가 매우 빠르고 코드 수정 시 실시간에 가까운 즉각적인 반영을 보여줘,
 비교할 수 없이 쾌적한 개발 경험을 제공합니다.
@@ -226,10 +222,10 @@ template → script → style 순서로 작성
 ```
 https://vitejs.dev/
 
+ 
+## Build 란?
 
-## Build
-
-- 프로젝트의 소스 코드를 최적화하고 번들링하여 배포할 수 있는 형식으로 변환하는 과정
+- 프로젝트의 소스 코드를 최적화하고 *번들링(묶는 것)하여 배포할 수 있는 형식으로 변환하는 과정
 
 - 개발 중에 사용되는 여러 소스 파일 및 리소스(JavaScript, CSS, 이미지 등)를 최적화된 형태로 조합하여 최종 소프트웨어 제품을 생성하는 것
 
@@ -244,7 +240,7 @@ https://vitejs.dev/
 # ✅ Vue Project
 
 ## Vue Project 생성 (1/7)
-- Vue Project (Application) 생성 (Vite 기반 빌드)
+### ● Vue Project (Application) 생성 (Vite 기반 빌드)
 ```ruby
 $ npm create vue@latest
 ```
@@ -259,9 +255,9 @@ $ npm create vue@latest
 
 ## Vue Project 생성 (2/7)
 
-- 프로젝트명 설정
-    - tab 클릭 시 기본 값 사용
-    - enter 클릭 시 결정 후 진행
+### ● 프로젝트명 설정
+  - tab 클릭 시 기본 값 사용
+  - enter 클릭 시 결정 후 진행
 ```sql
 $ npm create vue@latest
 Need to install the following packages:
@@ -276,9 +272,9 @@ Ok to proceed? (y) y
 
 ## Vue Project 생성 (3/7)
 
-- 프로젝트에 추가 할 설정 선택
-    - space 클릭 시 중복 선택 가능
-    - enter 클릭 시 결정 후 진행
+### ● 프로젝트에 추가 할 설정 선택
+  - space 클릭 시 중복 선택 가능
+  - enter 클릭 시 결정 후 진행
 
 ```pgsql
 Select features to include in your project: (↑/↓ to navigate, space to select, a to toggle all, enter to confirm)
@@ -296,20 +292,20 @@ Select features to include in your project: (↑/↓ to navigate, space to selec
 
 ## Vue Project 생성 (4/7)
 
-- 실험용 기능을 설치할 지 묻는 단계
-    - 버그가 있거나 안정적이지 않을 수 있음
-    - 해당 기능을 꼭 사용할 필요는 없음
+### ● 실험용 기능을 설치할 지 묻는 단계
+  - 버그가 있거나 안정적이지 않을 수 있음
+  - 해당 기능을 꼭 사용할 필요는 없음
 ```pgsql
 Select experimental features to include in your project: (↑/↓ to navigate, space to select, a to toggle all, enter to confirm)
 □ Oxlint (experimental)
-□ rolldown-vite (experimental)
+□ rolldown-vite (experimental)  # 번들러
 ```
 <그림8_Vue_Single File Components_Vue 프로젝트 실험용 기능 설정>
 
 
 ## Vue Project 생성 (5/7)
 
-- 프로젝트 생성 완료
+### ● 프로젝트 생성 완료
 ```mathematica
 Scaffolding project in C:\Users\ ○○○ … ○○○ .
 Done. Now run:
@@ -326,8 +322,7 @@ Optional: Initialize Git in your project directory with:
 
 
 ## Vue Project 생성 (6/7)
-
-- 프로젝트 폴더 이동
+### ●  프로젝트 폴더 이동
 ```powershell
 $ cd vue-project
 ```
@@ -349,7 +344,7 @@ found 0 vulnerabilities
 
 ## Vue Project 생성 (7/7)
 
-- Vue 프로젝트 서버 실행
+### ● Vue 프로젝트 서버 실행
 ```arduino
 $ npm run dev
 ```
@@ -372,7 +367,7 @@ VITE v7.0.4  ready in 1216 ms
 
 ## Node Package Manager
 
-- Node.js의 기본 패키지 관리자
+- Node.js의 기본 패키지 관리자 (python 'pip' 역할과 같음 !!)
 
 ```markdown
 - NPM은 개발자들이 만든 JavaScript 패키지를 모아놓은 거대한 저장소이자, 그 패키지들을 쉽게 설치하고 관리할 수 있게 해주는 명령어 도구입니다.
@@ -394,7 +389,7 @@ VITE v7.0.4  ready in 1216 ms
 - NPM을 활용해 수많은 오픈 소스 패키지와 라이브러리를 제공하여
 개발자들이 손쉽게 코드를 공유하고 재사용할 수 있게 함
 
-### 💡 Server-Side: 브라우저가 아닌 서버에서, 로직을 처리하는 것
+> 💡 **Server-Side**: 브라우저가 아닌 서버에서, 로직을 처리하는 것
 
 
 ---
@@ -403,9 +398,9 @@ VITE v7.0.4  ready in 1216 ms
 # ✅ 모듈과 번들러
 
 ## Module
+- **프로그램을 구성하는 독립적인 코드 블록 (*.js 파일)**
 
 ```markdown
-- 프로그램을 구성하는 독립적인 코드 블록 (*.js 파일)
 - 개발하는 애플리케이션의 크기가 커지고 복잡해지면서 파일 하나에 모든 기능을 담기가 어려워졌고,
 - 자연스럽게 파일을 여러 개로 분리하여 관리를 하게 되었습니다.
 - 이때 **분리된 각 파일이 바로 모듈(module)** 입니다. ( .js 파일 하나가 하나의 모듈)
@@ -421,16 +416,16 @@ VITE v7.0.4  ready in 1216 ms
 
 - 복잡하고 깊은 모듈 간 의존성 문제를 해결하기 위한 도구가 필요
 
-    ➤ Bundler
+    ➤ **Bundler**
 
-### 💡 의존성: 코드가 작동하기 위해 필요한 외부 라이브러리와의 관계
+> 💡 **의존성**: 코드가 작동하기 위해 필요한 외부 라이브러리와의 관계
 
 
 ## node_modules의 의존성 깊이
 
 ![alt text](image-1.png)
 
-### 💡 node_modules: npm install로 설치한 모든 패키지들이 모여있는 저장소
+> 💡 **node_modules**: npm install로 설치한 모든 패키지들이 모여있는 저장소
 
 
 ## Bundler
@@ -438,14 +433,14 @@ VITE v7.0.4  ready in 1216 ms
 - 여러 모듈과 파일을 하나(혹은 여러 개)의 번들로 **묶고** 최적화하여 사용할 수 있게 만들어주는 도구
 
 ```markdown
-- Bundler는 여러 개로 나뉜 JavaScript 모듈 파일들을 하나의 파일로 합쳐주는 도구입니다.
+- Bundler는 여러 개로 나뉜 JavaScript 모듈 파일들을 하나의 파일로 합쳐주는 도구.
 - 브라우저가 수많은 파일을 각각 요청하여 생기는 네트워크 부담을 줄이고,
-코드를 브라우저가 이해할 수 있는 형태로 변환해줍니다.
-- 최종적으로 웹사이트의 로딩 속도를 높이고 성능을 최적화하는 역할을 합니다.
+코드를 브라우저가 이해할 수 있는 형태로 변환.
+- 최종적으로 웹사이트의 로딩 속도를 높이고 성능을 최적화하는 역할.
 ```
 
 
-## undler의 역할
+## Bundler의 역할
 
 - 의존성 관리, 코드 최적화, 리소스 관리 등
 - Bundler가 하는 작업을 Bundling이라 함
@@ -454,11 +449,9 @@ VITE v7.0.4  ready in 1216 ms
 
 ### TIP
 ```
-- 번들링의 핵심 목표는 여러 파일을 하나로 묶어 HTTP 요청을 줄여 웹 로딩 속도를 개선하는 것입니다.
-
-- JS뿐 아니라 CSS, 이미지 등 모든 정적 자원을 함께 처리하고, 최적화하는 역할도 합니다.
-
-- import하지 않은 코드는 '트리 쉐이킹'을 통해 최종 번들 파일에서 자동으로 제거됩니다.
+- 번들링의 핵심 목표는 여러 파일을 하나로 묶어 HTTP 요청을 줄여 웹 로딩 속도를 개선하는 것.
+- JS뿐 아니라 CSS, 이미지 등 모든 정적 자원을 함께 처리하고, 최적화하는 역할.
+- import하지 않은 코드는 '트리 쉐이킹'을 통해 최종 번들 파일에서 자동으로 제거됨.
 ```
 
 
@@ -491,7 +484,7 @@ VITE v7.0.4  ready in 1216 ms
 
 ## 1. public 디렉토리
 - 주로 다음 정적 파일을 위치 시킴
-    - 소스코드에서 참조되지 않는 코드
+    - 소스코드에서 참조되지 않는 코드 (**= 번들러로 합쳐질 필요 없는 파일**)
     - 항상 같은 이름을 갖는 코드
     - import 할 필요 없는 코드
 
@@ -502,8 +495,8 @@ https://vitejs.dev/guide/assets.html#the-public-directory
 
 
 ## 2. src 디렉토리
-- 프로젝트의 주요 소스 코드를 포함하는 곳
-- 실제로 우리가 작업하게 될 대부분의 소스 코드가 위치
+- 프로젝트의 **주요 소스 코드**를 포함하는 곳
+- **실제로 우리가 작업**하게 될 대부분의 소스 코드가 위치
 - 컴포넌트, 스타일, 라우팅 등 프로젝트의 **핵심 코드를 관리**
 
 ![alt text](image-2.png)
@@ -525,7 +518,7 @@ https://vitejs.dev/guide/assets.html#the-public-directory
 ![alt text](image-4.png)
 
 
-## 2.3 src/App.vue
+## ⭐ 2.3 src/App.vue 
 - Vue 앱의 Root 컴포넌트
 - 다른 하위 컴포넌트들을 포함
 - 애플리케이션 전체의 레이아웃과 공통적인 요소를 정의
@@ -541,20 +534,19 @@ https://vitejs.dev/guide/assets.html#the-public-directory
 
 
 ## 3. index.html
-
-- Vue 앱의 기본 HTML 파일
+- Vue 앱의 **기본 HTML 파일** (실제로 user가 받는 html 파일)
 - main.js에서 App.vue 컴포넌트를 렌더링하고, index.html 특정 위치를 마운트 시킴
 
-    ➤ Vue 앱이 SPA인 이유
+    ➤ Vue 앱이 SPA인 이유 (**index.html 파일 하나로 이루어져있기 때문**)
 
 - 필요한 스타일 시트, 스크립트 등의 외부 리소스를
 로드 할 수 있음 (ex. bootstrap CDN)
 
 ![alt text](image-8.png)
-> ### 마운트: 만들어진 앱을 HTML로 보여주는 것
 
+> 💡 **마운트**: 만들어진 앱을 HTML로 보여주는 것
 
-> ### SPA: 하나의 페이지 안에서, 내용만 바꿔가며 보여주는 웹 앱
+> 💡 **SPA**: 하나의 페이지 안에서, 내용만 바꿔가며 보여주는 웹 앱
 
 
 ## 4. 기타 설정 파일
@@ -567,9 +559,9 @@ https://vitejs.dev/guide/assets.html#the-public-directory
 
 ![alt text](image-9.png)
 
-> ### 컴파일 옵션: 디버깅, 최적화 등 컴파일의 세부 방식을 제어하는 명령어
+> 💡 **컴파일 옵션** : 디버깅, 최적화 등 컴파일의 세부 방식을 제어하는 명령어
 
-> ### 플러그인: 기존 프로그램에 새로운 기능을 추가하는 확장 프로그램
+> 💡 **플러그인** : 기존 프로그램에 새로운 기능을 추가하는 확장 프로그램
 
 
 ---
@@ -584,7 +576,8 @@ https://vitejs.dev/guide/assets.html#the-public-directory
 - npm install 시 이를 참조하여 패키지를 설치
     - 어떤 패키지를 설치해야 하는지 결정하는 기준 제공
 
-> ### 메타데이터: 데이터를 설명해주는 데이터
+> 💡 **메타데이터** : 데이터를 설명해주는 데이터
+
 ![alt text](image-10.png)
 
 
@@ -599,7 +592,7 @@ https://vitejs.dev/guide/assets.html#the-public-directory
 
 
 ## 5.2 package-lock.json
-- package.json을 기반으로 실제 설치된 패키지들의 정확한 버전 정보를 기록하는 파일
+- package.json을 기반으로 실제 설치된 패키지들의 "정확한 버전 정보"를 기록하는 파일
 - 실제로 어느 버전의 패키지가 설치되었는지 확정하고 기록
 - 다른 환경에서도 동일한 패키지 구성을 재현 가능하게 함
 
@@ -607,11 +600,11 @@ https://vitejs.dev/guide/assets.html#the-public-directory
 
 
 ## 5.2 package-lock.json 특징
-- 정확한 버전 고정
+- ### 정확한 버전 고정
     - 프로젝트를 설치할 때 실제로 어떤 버전의 패키지가 설치되었는지를 기록
-- 빌드 안정성 보장
+- ### 빌드 안정성 보장
     - 협업 또는 배포 환경에서, 모든 개발자가 동일한 패키지 버전을 사용하도록 보장
-- 자동 관리
+- ### 자동 관리
     - npm install 결과가 반영되어 매번 자동 업데이트
 
 ➤ "장바구니에 담긴 물건들의 정확한 브랜드와 생산일자가 적힌 구매 내역서"
@@ -639,14 +632,15 @@ https://vitejs.dev/guide/assets.html#the-public-directory
 
 
 ## 5. 패키지 관리 정리
-- ### package.json
-    - 어떤 패키지가 필요하고 어떤 버전 범위를 허용할지 정의하는 “설계도”
 
-- ### package-lock.json
-    - 실제로 설치한 패키지의 정확한 버전을 기록하는 “상세 내역서”
+### ✔️ package.json
+- 어떤 패키지가 필요하고 어떤 버전 범위를 허용할지 정의하는 “설계도”
 
-- ### node_modules
-    - 이 설계도와 내역서에 따라 내려 받은 실제 패키지 “자재 창고”
+### ✔️ package-lock.json
+- 실제로 설치한 패키지의 정확한 버전을 기록하는 “상세 내역서”
+
+### ✔️ node_modules
+- 이 설계도와 내역서에 따라 내려 받은 실제 패키지 “자재 창고”
 
 
 ---
@@ -677,6 +671,10 @@ https://vitejs.dev/guide/assets.html#the-public-directory
 
 ## 2. 컴포넌트 파일 생성
 - MyComponent.vue 생성
+
+### ▶️ '.vue' 는 component 안에 생성하면 됨 
+### ▶️ vue component 기본구조 만들 때 'vb3s' 치면 됨 !!
+
 ```vue
 <!-- MyComponent.vue -->
 
@@ -694,19 +692,19 @@ https://vitejs.dev/guide/assets.html#the-public-directory
 ## 3. 컴포넌트 등록
 - App 컴포넌트에 MyComponent를 등록
 - App(부모) – MyComponent(자식) 관계 형성
-- "@" → "src/"" 경로를 뜻하는 약어
+- "**@**" → "**src/** */" 경로를 뜻하는 약어
 
 ```vue
 <!-- App.vue -->
 
 <template>
   <h1>App.vue</h1>
-  <MyComponent />
+  <MyComponent />   // 2. 배치 (single 태그로 닫히는 것만!)
 </template>
 
 <script setup>
 // import MyComponent from './components/MyComponent.vue'
-import MyComponent from '@/components/MyComponent.vue'
+import MyComponent from '@/components/MyComponent.vue' // 1. component 불러오기
 </script>
 ```
 
@@ -828,15 +826,15 @@ App.vue
 
 
 ## Virtual DOM 주의사항
-- ❗실제 DOM에 직접 접근하지 말 것
+### ❗실제 DOM에 직접 접근하지 말 것
     
-    - JavaScript에서 사용하는 DOM 접근 메서드 (querySelector, createElement, …) 사용 금지
-    - 아래와 같은 예측 불가능 문제 발생 가능
-        1. 데이터와 화면의 불일치 (상태 불일치)
-        2. 예측 불가능한 렌더링
-        3. 코드의 복잡성 증가
+- JavaScript에서 사용하는 DOM 접근 메서드 (querySelector, createElement, …) 사용 금지
+- 아래와 같은 예측 불가능 문제 발생 가능
+    1. 데이터와 화면의 불일치 (상태 불일치)
+    2. 예측 불가능한 렌더링
+    3. 코드의 복잡성 증가
 
-    ➤ Vue의 ref()와 Lifecycle Hooks 함수를 사용해 간접적으로 접근하여 조작할 것
+➤ Vue의 ref()와 Lifecycle Hooks 함수를 사용해 간접적으로 접근하여 조작할 것
 
 
 ## 직접 DOM 엘리먼트에 접근해야 하는 경우
@@ -959,7 +957,10 @@ https://vuejs.org/guide/extras/composition-api-faq.html
 ## CSS scoped 속성
 - `<style scoped>`를 사용하면 해당 컴포넌트 내부의 스타일이 현재 컴포넌트 내부 요소에게만 적용되도록 범위를 제한하는 기능
 
+    => **'.vue' 파일 내에서만 CSS 적용!!**
+
 - 스타일이 컴포넌트 바깥으로 유출되거나, 다른 컴포넌트에서 정의한 스타일이 현재 컴포넌트를 침범하지 않도록 막아 줌
+
 ```php
 <style scoped> </style>
 ```
@@ -1029,7 +1030,7 @@ MyComponent
 # ✅ Scaffolding
 
 ## 스캐폴딩 (Scaffolding)
-- 새로운 프로젝트나 모듈을 시작할 때, 초기 구조와 코드를 자동으로 생성하는 과정
+- 새로운 프로젝트나 모듈을 시작할 때, **초기 구조와 코드를 자동으로 생성하는 과정**
 
 ```
 - 스캐폴딩은 새 건물을 지을 때 세우는 뼈대처럼, 새로운 프로젝트를 시작할 때 필요한 기본적인 파일과 폴더 구조를 자동으로 생성해주는 기능입니다.
