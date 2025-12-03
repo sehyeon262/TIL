@@ -118,7 +118,7 @@ template → script → style 순서로 작성
 
 ## 1️⃣ `<template>` 블록
 
-- **각 *.vue 파일은 최상위 `<template>` 블록을 하나만** 포함할 수 있음
+- 각 *.vue 파일은 최상위 `<template>` 블록을 하나만** 포함할 수 있음
 
 ```php
 <template>
@@ -140,7 +140,7 @@ template → script → style 순서로 작성
 
 ## 2️⃣ `<script setup>` 블록
 
-- **각 *.vue 파일은 *`<script setup>` 블록을 하나만** 포함할 수 있음 (일반 `<script>` 제외)
+- 각 *.vue 파일은 *`<script setup>` 블록을 하나만** 포함할 수 있음 (일반 `<script>` 제외)
 
 - 컴포넌트의 setup() 함수로 사용되며 컴포넌트의 각 인스턴스에 대해 실행
 
