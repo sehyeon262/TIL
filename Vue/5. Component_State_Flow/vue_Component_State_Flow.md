@@ -333,12 +333,12 @@ defineProps({
 # ✅ Props 세부사항
 
 ## 🔵 1. Props Name Casing (Props 이름 컨벤션)
-- 부모 템플릿에서 전달 시 (HTML 속성) → kebab-case (my-msg)
+- 부모 템플릿에서 전달 시 (HTML 속성) → **kebab-case (my-msg)**
 ```html
 <ParentChild my-msg="message" />
 ```
 
-- 자식 스크립트에서 선언 시 (JavaScript) → camelCase (myMsg)
+- 자식 스크립트에서 선언 시 (JavaScript) → **camelCase (myMsg)**
 ```vue
 <template>
   <div>
