@@ -62,7 +62,7 @@
 
 > 💡 **SSR** : 서버에서 완성된 html 페이지를 만들어, 브라우저에 보내는 방식
 
-    ![alt text](image.png)
+  ![alt text](image.png)
 
 
 ## 🔵 CSR에서의 Routing
@@ -71,7 +71,7 @@
 
 > 💡 **CSR** : 서버는 뼈대만 주고, 브라우저가 직접 페이지를 그리는 방식
 
-    ![alt text](image-1.png)
+  ![alt text](image-1.png)
 
 
 ## 🔵 SPA에서 Routing이 없다면
