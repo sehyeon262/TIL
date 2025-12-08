@@ -516,7 +516,7 @@ defineProps({
 - todos 목록에 todo를 생성 및 추가하는 addTodo 액션 정의
 
 ```js
-// stores/counter.js
+// stores/todo.js
 
 const addTodo = function (todoText) {
     todos.value.push({
