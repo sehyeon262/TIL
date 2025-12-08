@@ -168,7 +168,7 @@ const increment = function () {
     ➤ defineStore()의 반환 값(store)을 담는 변수의 이름은 use...Store 패턴을 사용하는 것을 권장합니다.
    (예: useCounterStore)
 
-    ➤ defineStore()의 첫번째 인자는 애플리케이션 전체에 걸쳐 사용하는 store의 고유 ID
+    ➤ **defineStore()의 첫번째 인자**는 애플리케이션 전체에 걸쳐 사용하는 **store의 고유 ID**
 
 ```js
 // stores/counter.js
@@ -176,7 +176,7 @@ const increment = function () {
 import { ref, computed } from 'vue'
 import { defineStore } from 'pinia'
 
-export const useCounterStore = defineStore('counter', () => {
+export const useCounterStore = defineStore('counter', () => {  ⭐
 
     const count = ref(0)
 
@@ -303,7 +303,7 @@ export const useCounterStore = defineStore('counter', () => {
 - 애플리케이션의 상태 관리에 필요한 추가 기능을 제공하거나 확장하는 도구나 모듈
 - 애플리케이션의 상태 관리를 더욱 간편하고 유연하게 만들어주며, 패키지 매니저로 설치 이후 별도 설정을 통해 추가 됨
 - 예)
-    - 모든 스토어의 상태를 자동으로 localStorage에 저장하고 복원해주는 플러그인
+    - 모든 스토어의 상태를 자동으로 **localStorage**에 저장하고 복원해주는 플러그인
     - 해당 플러그인을 등록하면, 스토어의 state 값이 변경될 때마다 자동으로 브라우저의 localstorage에 저장 됨
     - 그로 인해, 페이지를 새로고침해도 값이 초기화되지 않고 유지
 
@@ -835,12 +835,219 @@ const updateTodo = function (selectedId) {
 >{{ todo.text }}</label>
 ```
 
-## 🔵
 
-## 🔵
+---
 
-## 🔵
 
-## 🔵
+# ✅ 수정과 삭제 구현 방식
 
-## 🔵
+
+## 🔵 수정과 삭제 구현에 대한 2가지 관점
+- In-place 방식 (하나만 수정/삭제)
+    - 배열 전체 재생성 없이 필요한 항목만 바로 수정 또는 제거
+- 전체 배열 재생성 방식
+    - 배열을 순회하면서 특정 조건을 만족하지 않으면 누락하거나, 필요한 변경 사항만 반영해 새로운 배열을 만든 뒤 기존 배열에 재할당
+
+➤ 두 가지 접근 모두 성능과 가독성 면에서 큰 차이가 없는 경우가 많지만, 프로젝트나 팀 컨벤션에 따라
+ 방식이 달라질 수 있음
+
+➤ 중요한 것은, 무엇을 의도하고 있는지(단일 항목 수정/삭제 vs. 전체 재생성)를 **명확히 알고 선택**하는 것
+
+
+---
+
+
+# ✅ Todo 카운팅
+
+
+## 🔵 완료된 todo 개수 계산 (1/2)
+- todos 배열의 길이 값을 반환하는 함수 doneTodosCount 작성 (getters)
+
+```js
+// stores/counter.js
+const doneTodosCount = computed(() => {
+    const doneTodos = todos.value.filter((todo) => todo.isDone)
+
+    return doneTodos.length
+})
+
+return { todos, addTodo, deleteTodo, updateTodo, doneTodosCount }
+```
+
+
+## 🔵 완료된 todo 개수 계산 (2/2)
+- App 컴포넌트에서 doneTodosCount getter를 참조
+
+```js
+// App.vue
+import { useCounterStore } from '@/stores/counter'
+
+const store = useCounterStore()
+```
+```html
+<!-- App.vue -->
+<div>
+    <h1>Todo Project</h1>
+    <h2>완료된 Todo 개수 : {{ store.doneTodosCount }}</h2>
+    <TodoList />
+    <TodoForm />
+</div>
+```
+
+
+---
+
+
+# ✅ Local Storage
+
+
+## 🔵 Local Storage 란?
+- 브라우저 내에 key-value 쌍을 저장하는 웹 스토리지 객체
+
+- Local Storage는 웹 브라우저에 데이터를 영구적으로 저장할 수 있는 ‘개인 하드디스크’ 같은 공간입니다.
+- 여기에 저장된 데이터는 사용자가 직접 삭제하지 않는 한, 브라우저를 껐다 켜거나 컴퓨터를 재부팅해도 사라지지 않고 그대로 남아있습니다.
+- 주로 사용자의 설정(예: 다크 모드, 언어) 등 서버와 상관없이 브라우저에만 기억해두면 되는 정보를 저장하는 데 사용됩니다.
+
+
+## 🔵 Local Storage 특징
+- 페이지를 새로 고침하고 브라우저를 다시 실행해도 데이터가 유지
+- 쿠키와 다르게 네트워크 요청 시 서버로 전송되지 않음
+- 여러 탭이나 창 간에 데이터를 공유 할 수 있음
+
+> **쿠키** : 서버가 사용자를 기억하려고, 브라우저에 남기는 정보
+
+
+## 🔵 Local Storage 사용 목적
+- 웹 애플리케이션에서 사용자 설정, 상태 정보, 캐시 데이터 등을 클라이언트 측에서 보관하여 웹사이트의 성능을 향상시키고 사용자 경험을 개선하기 위함
+
+
+## 🔵 pinia-plugin-persistedstate
+- Pinia의 플러그인(plugin) 중 하나
+- 웹 애플리케이션의 상태(state)를 브라우저의 local storage나 session storage에 영구적으로 저장하고 복원하는 기능을 제공
+
+https://prazdevs.github.io/pinia-plugin-persistedstate/
+
+
+## 🔵 pinia-plugin-persistedstate 설정 (1/3)
+- npm 설치 및 등록 ( `$ npm i pinia-plugin-persistedstate` )
+
+```js
+// main.js
+
+import piniaPluginPersistedstate from 'pinia-plugin-persistedstate'
+
+const app = createApp(App)
+const pinia = createPinia()
+
+pinia.use(piniaPluginPersistedstate)
+
+// app.use(createPinia())
+app.use(pinia)
+
+app.mount('#app')
+```
+
+
+## 🔵 pinia-plugin-persistedstate 설정 (2/3)
+- defineStore()의 3번째 인자로 관련 객체 추가
+```js
+// stores/counter.js
+
+export const useCounterStore = defineStore('counter', () => {
+  …
+  return { todos, addTodo, deleteTodo, updateTodo, doneTodosCount }
+}, { persist: true })
+```
+
+
+## 🔵 pinia-plugin-persistedstate 설정 (3/3)
+- 적용 결과 (개발자도구 → Application → Local Storage)
+    - 브라우저의 Local Storage에 저장되는 todos state 확인
+    ![alt text](image-9.png)
+
+
+---
+
+
+# ✅ Pinia 활용 시점
+
+
+## 🔵 이제 모든 데이터를 store에서 관리해야 할까?
+- Pinia를 사용한다고 해서 모든 데이터를 state에 넣어야 하는 것은 아님
+    
+    ➤ 컴포넌트 내부에서만 사용하는 데이터까지 Pinia로 관리하면, **코드가 불필요하게 복잡해짐**
+
+- pass props, emit event를 함께 사용하여 애플리케이션을 구성해야 함
+
+    ➤ 단순한 부모-자식 데이터 전달은 Pinia보다 props가 더 간단하고 직관적인 방법
+
+➤ 상황에 따라 적절하게 사용하는 것이 필요
+
+
+## 🔵 그러면 Pinia, 언제 사용해야 할까?
+- Pinia는 공유된 상태를 관리하는 데 유용하지만,
+구조적인 개념을 이해하고 시작하는 비용이 큼
+- 애플리케이션이 **단순하다면 Pinia가 없는 것**이 더 효율적일 수 있음
+- 그러나 중대형 규모의 SPA를 구축하는 경우 Pinia는 자연스럽게 선택할 수 있는 단계가 오게 됨
+- 결과적으로 적절한 상황에서 활용했을 때 Pinia 효용을 극대화할 수 있음
+
+
+---
+
+
+# 📚 총 정리
+
+## 🔑 핵심 키워드
+| 개념            | 설명                          | 예시                                  |
+| ------------- | --------------------------- | ----------------------------------- |
+| 상태 관리         | 여러 컴포넌트의 공유 상태를 관리          | Props, emit 혹은 중앙 저장소 사용            |
+| Pinia         | Vue의 공식 상태 관리 라이브러리         | 중앙 저장소(store)를 제공                   |
+| defineStore   | 중앙 저장소(store)를 정의하는 함수      | `defineStore('counter', () => {})`  |
+| state         | 중앙 저장소의 반응형 데이터             | `const count = ref(0)`              |
+| getters       | state를 기반으로 한 계산된 속성        | `const double = computed(() => {})` |
+| actions       | state를 변경하는 메서드             | `function increment() {}`           |
+| 상태 유지 (Pinia) | Pinia 상태를 Local Storage에 저장 | `{ persist: true }` 옵션 사용           |
+
+
+---
+
+
+## 📝 요약 및 정리
+### Pinia
+- Vue의 공식 상태 관리 라이브러리로, 컴포넌트들이 공유하는 상태를 관리하기 위한 중앙 저장소(store)를 제공
+- Pinia를 사용하면 어떤 컴포넌트든 props나 emit 없이 중앙 저장소에 직접 접근하여 상태를 읽거나 변경 가능
+- defineStore() 함수를 사용해 store를 정의하며, store는 세 가지 핵심 요소로 구성됨
+- **state**
+    - ref()로 정의된 반응형 데이터로, 여러 컴포넌트가 공유하는 상태의 원본
+
+- **getters**
+    - computed()로 정의되며, state를 기반으로 하는 계산된 값으로 state 원본에 의존하기 때문에 캐싱(caching) 기능 존재
+
+- **actions**
+    - function으로 정의되며, state를 변경하는 메서드이며 비동기 로직 포함 가능
+
+
+### State Persistence
+- Pinia의 상태는 기본적으로 메모리에 저장되므로, 페이지를 새로고침하면 초기화됨
+
+- pinia-plugin-persistedstate
+    - Pinia의 상태를 브라우저의 Local Storage에 자동으로 저장하여 새로고침해도 데이터가 유지되도록 하는 플러그인
+
+-  Local Storage
+    - 브라우저를 닫았다 열어도 데이터가 사라지지 않는 영구적인 웹 스토리지 객체
+    - 플러그인을 설치하고 main.js에 등록한 후, defineStore()의 세 번째 인자로 { persist: true } 옵션을 추가하면 해당 store의 상태가 자동으로 Local Storage에 저장됨
+
+
+---
+
+
+### Props는 훌륭한 도구지만, 컴포넌트 구조가 5단계 이상 깊어진다면 어떨까요?
+- 데이터를 전달하기 위해 모든 중간 컴포넌트를 거쳐야 하는 건 매우 복잡함
+
+➡ 우리는 Pinia라는 중앙 저장소를 활용해 문제 해결 방법을 학습했고, 이를 통해 컴포넌트 구조에 얽매이지 않고 앱 전체의 상태를 일관되고 효율적으로 관리하는 방법을 배웠음.
+```js
+import { useCounterStore } from '@/stores/counter'
+const store = useCounterStore()
+
+// 이제 store.count, store.increment() 등으로 직접 접근!
+```
