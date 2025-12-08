@@ -487,6 +487,7 @@ app.mount('#app')
 - TodoListItem 컴포넌트와 TodoList 컴포넌트를 작성  
 - TodoListItem 컴포넌트를 TodoList 컴포넌트에 등록
 
+### 📄 TodoListItem.vue
 ```js
 <!-- TodoListItem.vue -->
 <template>
@@ -494,7 +495,9 @@ app.mount('#app')
     TodoListItem
   </div>
 </template>
-
+```
+### 📄TodoList.vue
+```js
 <!-- TodoList.vue -->
 <template>
   <div>
@@ -512,14 +515,16 @@ import TodoListItem from '@/components/TodoListItem.vue'
 - TodoForm 컴포넌트 작성  
 - App 컴포넌트에 TodoList, TodoForm 컴포넌트 등록
 
+### 📄 TodoForm.vue
 ```js
-<!-- TodoForm.vue -->
 <template>
   <div>
     TodoForm
   </div>
 </template>
-
+```
+### 📄 App.vue
+```js
 <!-- App.vue -->
 <template>
   <div>
