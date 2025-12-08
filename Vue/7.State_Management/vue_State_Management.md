@@ -162,11 +162,12 @@ const increment = function () {
 
 
 ## 🔵 1. Pinia 구성 요소: **store**
-- 공통 데이터를 관리하는 중앙 저장소
+- **공통 데이터를 관리하는 중앙 저장소**
 - 모든 컴포넌트가 공유하는 상태이며, 기능이 작성됨
 
     ➤ defineStore()의 반환 값(store)을 담는 변수의 이름은 use...Store 패턴을 사용하는 것을 권장합니다.
-   (예: useCounterStore)
+    
+    (예: useCounterStore)
 
     ➤ **defineStore()의 첫번째 인자**는 애플리케이션 전체에 걸쳐 사용하는 **store의 고유 ID**
 
@@ -192,9 +193,11 @@ export const useCounterStore = defineStore('counter', () => {  ⭐
 
 
 ## 🔵 2. Pinia 구성 요소: **state**
-- 중앙 저장소에 저장되는 반응형 상태(데이터)
+- 중앙 저장소에 저장되는 **반응형 상태(데이터)**
 - 해당 값(count)을 변경하면, 이 데이터를 사용하고 있는 모든 컴포넌트의 화면은 알아서 업데이트 됨
 - **ref()** 와 같은 역할을 함
+
+> **ref()** : 기본형 데이터를 반응형으로 만드는 Vue 함수  
 
 ```js
 // stores/counter.js
@@ -216,13 +219,14 @@ export const useCounterStore = defineStore('counter', () => {
 })
 ```
 
-> **ref()** : 기본형 데이터를 반응형으로 만드는 Vue 함수  
 
 
 ## 🔵 3. Pinia 구성 요소: **getters**
-- 계산된 값
+- **계산된 값**
 - state를 기반으로 파생된 값을 정의하는 것
-- **computed()** 와 똑같은 역할을 함
+- **computed()** 와 똑같은 역할을 함 (캐싱된다)
+
+> **computed()** : 원본 데이터가 바뀔 때만, 값을 알아서 다시 계산하는 ref
 
 ```js
 // stores/counter.js
@@ -244,12 +248,12 @@ export const useCounterStore = defineStore('counter', () => {
 })
 ```
 
-> **computed()** : 원본 데이터가 바뀔 때만, 값을 알아서 다시 계산하는 ref
-
 
 ## 🔵 4. Pinia 구성 요소: **actions**
 - state를 변경하는 역할
 - methods와 같은 역할을 함
+
+> **methods** : 클릭 같은 이벤트에 반응해, 특정 로직을 실행시키는 함수
 
 ```js
 // stores/counter.js
@@ -270,8 +274,9 @@ export const useCounterStore = defineStore('counter', () => {
   return { count, doubleCount, increment }
 })
 ```
+> ※ 컴포넌트에서 state의 데이터를 직접 변경 권장 X
 
-> **methods** : 클릭 같은 이벤트에 반응해, 특정 로직을 실행시키는 함수
+> ※ store에 정의된 action을 호출해서 간접적으로 변경
 
 
 ## 🔵 5. Pinia 구성 요소: 반환 값
@@ -303,9 +308,9 @@ export const useCounterStore = defineStore('counter', () => {
 - 애플리케이션의 상태 관리에 필요한 추가 기능을 제공하거나 확장하는 도구나 모듈
 - 애플리케이션의 상태 관리를 더욱 간편하고 유연하게 만들어주며, 패키지 매니저로 설치 이후 별도 설정을 통해 추가 됨
 - 예)
-    - 모든 스토어의 상태를 자동으로 **localStorage**에 저장하고 복원해주는 플러그인
+    - 모든 스토어의 상태를 자동으로 **localStorage에 저장하고 복원**해주는 플러그인
     - 해당 플러그인을 등록하면, 스토어의 state 값이 변경될 때마다 자동으로 브라우저의 localstorage에 저장 됨
-    - 그로 인해, 페이지를 새로고침해도 값이 초기화되지 않고 유지
+    - 그로 인해, 페이지를 **새로고침해도 값이 초기화되지 않고 유지**
 
 
 ---
@@ -318,20 +323,125 @@ export const useCounterStore = defineStore('counter', () => {
 - 각 컴포넌트 깊이에 관계 없이 store 인스턴스로 state에 접근하여 직접 읽고 쓸 수 있음
 - 만약 store에 state를 정의하지 않았다면 컴포넌트에서 새로 추가할 수 없음
 
-    ![alt text](image-4.png)
+```js
+// stores/counter.js
+
+import { ref, computed } from 'vue'
+import { defineStore } from 'pinia'
+
+export const useCounterStore = defineStore('counter', () => {
+
+  const count = ref(0)  ⭐
+
+  const doubleCount = computed(() => count.value * 2)
+
+  function increment() {
+    count.value++
+  }
+
+  return { count, doubleCount, increment }
+})
+```
+
+```js
+// App.vue
+import { useCounterStore } from '@/stores/counter'
+
+const store = useCounterStore()
+
+// state 참조 및 변경
+console.log(store.count)  ⭐
+
+const newNumber = store.count + 1  ⭐
+```
+```vue
+<!-- App.vue -->
+<template>
+  <div>
+    <p>state : {{ store.count }}</p>  ⭐
+  </div>
+</template>
+```
 
 
 ## 🔵 Pinia 구성 요소 활용: getters
 - store의 모든 getters 또한 state처럼 직접 접근 할 수 있음
+```js
+// stores/counter.js
 
-    ![alt text](image-5.png)
+import { ref, computed } from 'vue'
+import { defineStore } from 'pinia'
+
+export const useCounterStore = defineStore('counter', () => {
+
+  const count = ref(0)
+
+  const doubleCount = computed(() => count.value * 2)  ⭐
+
+  function increment() {
+    count.value++
+  }
+
+  return { count, doubleCount, increment }
+})
+```
+```js
+// App.vue
+import { useCounterStore } from '@/stores/counter'
+
+const store = useCounterStore()
+
+console.log(store.doubleCount)  ⭐
+```
+```vue
+<!-- App.vue -->
+<template>
+  <div>
+    <p>getters : {{ store.doubleCount }}</p>  ⭐
+  </div>
+</template>
+```
 
 
 ## 🔵 Pinia 구성 요소 활용: Actions
 - store의 모든 actions 또한 직접 접근 및 호출 할 수 있음
 - getters와 달리 state 조작, 비동기, API 호출이나 다른 로직을 진행할 수 있음
 
-    ![alt text](image-6.png)
+```js
+// stores/counter.js
+
+import { ref, computed } from 'vue'
+import { defineStore } from 'pinia'
+
+export const useCounterStore = defineStore('counter', () => {
+
+  const count = ref(0)
+
+  const doubleCount = computed(() => count.value * 2)
+
+  function increment() {  ⭐
+    count.value++  ⭐
+  }
+
+  return { count, doubleCount, increment }
+})
+```
+```js
+// App.vue
+import { useCounterStore } from '@/stores/counter'
+
+const store = useCounterStore()
+
+store.increment()  ⭐
+```
+```vue
+<!-- App.vue -->
+<template>
+  <div>
+    <button @click="store.increment()">+++</button>  ⭐
+  </div>
+</template>
+```
 
 
 ## 🔵 Vue devtools로 Pinia 구성 요소 확인하기
