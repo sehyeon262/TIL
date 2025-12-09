@@ -621,7 +621,7 @@ export const useArticleStore = defineStore('article', () => {
 ## 🔵 DRF와의 요청과 응답 (1/6)
 - DRF 서버로의 AJAX 요청을 위한 axios 설치 및 관련 코드 작성
 ```shell
-$ npm install
+$ npm install axios
 ```
 ※ Vue 서버 종료 → 설치 → 서버 재실행
 ```js
