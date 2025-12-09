@@ -143,6 +143,11 @@ from .serializers import ArticleListSerializer, ArticleSerializer
 from .models import Article
 ```
 
+> **get_object_or_404** : 조건 ok => 모델 인스턴스 반환/ 조건 x => 404 에러
+
+> **get_list_or_404** : 조건 ok => 모델의 모든 데이터 가져옴/ 데이터가 하나도 없으면 404에러
+
+
 
 ## 🔵 Skeleton code 살펴보기 (5/11)
 - View 함수 확인
