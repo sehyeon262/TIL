@@ -106,7 +106,7 @@ def article_list(request):
 ## 🔵 (복습) 인증의 필요성
 - 클라이언트와 서버 간의 상태 정보를 유지하기 위해서 쿠키와 세션을 사용
 - 하지만 클라이언트와 서버는 사용자를 식별하지 못하고 있는 상태
-- 그래서 사용자를 식별하기 위해서 필요한 과정이 바로 '인증(Authentication)'
+- 그래서 사용자를 식별하기 위해서 필요한 과정이 바로 **'인증(Authentication)'**
 - 다양한 인증이 존재
     - 아이디와 비밀번호
     - 소셜 로그인(OAuth)
@@ -119,12 +119,13 @@ def article_list(request):
 ## 🔵 DRF에서의 인증
 - 인증은 항상 view 함수 시작 시 다른 코드의 진행이 허용되기 전에 실행됨
     - 수신 요청을 해당 요청의 사용자 또는 해당 요청이 서명된 토큰(token)과 같은 자격 증명 자료와 연결
+
 - 이후 인증이 완료된 해당 자격 증명을 사용 권한 및 제한 정책을 확인하고, 요청을 허용해야 하는 지를 결정
 
 > **권한(permissions)** : 요청에 대한 접근 허용 또는 거부 여부를 결정
 
-### TIP
-- 인증 자체로는 들어오는 요청을 허용하거나 거부할 수 없으며, 단순히 요청에 사용된 자격 증명만 식별한다는 점에 유의하세요.
+### 💡 TIP
+- 인증 자체로는 들어오는 요청을 허용하거나 거부할 수 없으며, 단순히 요청에 사용된 **자격 증명만 식별한다는 점**에 유의하세요.
 
 https://www.django-rest-framework.org/api-guide/authentication/
 
@@ -132,13 +133,14 @@ https://www.django-rest-framework.org/api-guide/authentication/
 ## 🔵 승인되지 않은 응답 및 금지된 응답
 - 인증되지 않은 요청이 권한을 거부하는 경우 해당되는 두 가지 오류 코드를 응답
 
-1. HTTP 401 Unauthorized
-    - "요청에 유효한 인증 자격 증명(Authentication Credentials)이 없어 사용자를 식별할 수 없음"을 의미 (누구인지를 증명할 자료가 없음)
+### 1. HTTP 401 Unauthorized
+- "요청에 **유효한 인증 자격 증명**(Authentication Credentials)이 없어 **사용자를 식별할 수 없음**"을 의미 (누구인지를 증명할 자료가 없음)
+    - 예) "누군지 모르겠어. 너 로그인 안 했어."
 
-2. HTTP 403 Forbidden (Permission Denied)
-    - 서버에 요청이 전달되었지만, 권한 때문에 거절되었다는 것을 의미
-    - 401과 다른 점은 서버는 클라이언트가 누구인지 알고 있음
-
+### 2. HTTP 403 Forbidden (Permission Denied)
+- 서버에 요청이 전달되었지만, **권한 때문에 거절**되었다는 것을 의미
+- 401과 다른 점은 **서버는 클라이언트가 누구인지 알고 있음**
+    - 예) "누군지 알아. 근데 너한테 이 행동을 허락할 수 없어."
 
 ---
 
@@ -148,17 +150,21 @@ https://www.django-rest-framework.org/api-guide/authentication/
 
 ## 🔵 인증 정책 설정 방법 2가지
 1. 전역 설정
+    - 로그인 해야지만 요청 처리한다.
 
 2. View 함수 별 설정
+    - 특정 기능별로 설정
 
 
 ## 🔵 1. 전역 설정
-- 프로젝트 전체에 적용되는 기본 인증 방식을 정의
+- **프로젝트 전체에 적용되는 기본 인증 방식을 정의**
 - DEFAULT_AUTHENTICATION_CLASSES를 사용
-- 기본 값: SessionAuthentication과 BasicAuthentication
+- 기본 값: **SessionAuthentication**(쿠키, 세션)과 **BasicAuthentication**(아이디, 비밀번호 -> 서버에 전달)
 - 사용 예시 (DRF 공식 문서 참고)
 
 ```Python
+# settings.py 에서 설정
+
 REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': [
         'rest_framework.authentication.BasicAuthentication',
@@ -169,7 +175,7 @@ REST_FRAMEWORK = {
 
 
 ## 🔵 2. View 함수 별 설정
-- authentication_classes 데코레이터를 사용
+- **authentication_classes 데코레이터를 사용**
 - 개별 view에 지정하여 재정의
 - 사용 예시 (DRF 공식 문서 참고)
 
@@ -180,6 +186,7 @@ from rest_framework.decorators import authentication_classes
 from rest_framework.authentication import TokenAuthentication, BasicAuthentication
 
 @api_view(['GET', 'POST'])
+# 1. 토큰 정보 확인 -> 없으면 -> 2. 아이디, 비번 확인
 @authentication_classes([TokenAuthentication, BasicAuthentication])  ⭐
 def article_list(request):
     pass
@@ -187,27 +194,30 @@ def article_list(request):
 
 
 ## 🔵 DRF가 제공하는 인증 체계
-1. **BasicAuthentication**
-- 요청마다 사용자 이름과 비밀번호를 Base64로 인코딩하여 Authorization 헤더에 담아 보내는 방식
+### 1. BasicAuthentication
+- 요청마다 사용자 이름(ID)과 비밀번호(PW)를 Base64로 인코딩하여 Authorization 헤더에 담아 보내는 방식
 
-2. **TokenAuthentication (✅)**
+### 2. TokenAuthentication (✅)
 - 로그인 시 발급받은 고유한 토큰(Token)을 Authorization 헤더에 담아 요청함으로써 사용자를 인증하는 방식
+    - 토큰(문자열)을 view에서 저장(pinia) -> 요청할 때마다 헤더에 담아 보냄
+    - **front, back 분리할 때 많이 사용**
 
-3. **SessionAuthentication**
+### 3. SessionAuthentication
 - 장고의 기본 세션 시스템을 활용, 브라우저가 보내는 sessionid 쿠키를 통해 사용자를 인증하는 방식
+    - django에서 같은 origin으로 소통할 때 사용
 
-4. **RemoteUserAuthentication**
-- 웹 서버 등 외부 시스템이 이미 처리한 인증 결과를 신뢰하고, 전달받은 사용자 이름으로 사용자를 인증하는 방식
+### 4. RemoteUserAuthentication
+- 웹 서버 등 외부 시스템이 이미 처리한 인증 결과를 신뢰하고, 전달받은 사용자 이름으로 사용자를 인증하는 방식 **(통합 로그인)**
 
 
 
 ## 🔵 TokenAuthentication
-- token 기반 HTTP 인증 체계
+- **token 기반 HTTP 인증 체계**
 - 로그인 시 발급받은 고유한 토큰을 Authorization 헤더에 담아 요청함으로써 사용자를 인증하는 방식
 - 기본 데스크톱 및 모바일 클라이언트와 같은 클라이언트-서버 설정에 적합
 
 
-=> 서버가 인증된 사용자에게 토큰을 발급하고 사용자는 매 요청마다 발급받은 토큰을 요청과 함께 보내 인증 과정을 거침
+    => 서버가 인증된 사용자에게 토큰을 발급하고 사용자는 매 요청마다 발급받은 토큰을 요청과 함께 보내 인증 과정을 거침
 
 > **token** : 인증 후 발급되는 사용자의 신원이나 권한을 증명하는 값
 
@@ -229,7 +239,7 @@ def article_list(request):
 ## 🔵 1. 인증 클래스 설정
 - TokenAuthentication 활성화 코드 주석 해제
 
-=> 전역 인증 정책을 Token 방식으로 설정
+▶️ 전역 인증 정책을 Token 방식으로 설정
 
 ```Python
 # my_api/settings.py
@@ -261,6 +271,8 @@ INSTALLED_APPS = [
 $ python manage.py migrate
 ```
 
+**▶️ 토큰 정보 저장 !!**
+
 
 ## 🔵 토큰 인증 방식 과정 정리
 ![alt text](image-1.png)
@@ -273,10 +285,12 @@ $ python manage.py migrate
 
 
 ## 🔵 Dj-Rest-Auth
-- 회원가입, 로그인/로그아웃, 비밀번호 재설정, 소셜 로그인 등 다양한 인증 관련 기능을 API 엔드포인트로 제공하는 라이브러리
+- 회원가입, 로그인/로그아웃, 비밀번호 재설정, 소셜 로그인 등 **다양한 인증 관련 기능을 API 엔드포인트로 제공하는 라이브러리**
 - dj-rest-auth는 django.contrib.auth를 대체하는 것이 아니라, 그 위에 만들어져 기능을 확장
 
-=> **인증 기능을 RESTful API로 제공**
+▶️ **인증 기능을 RESTful API로 제공**
+
+https://dj-rest-auth.readthedocs.io/en/latest/
 
 
 ## 🔵 Dj-Rest-Auth 설치 및 적용 (1/2)
@@ -295,7 +309,7 @@ INSTALLED_APPS = [
     'accounts',
     'rest_framework',
     'rest_framework.authtoken',
-    'dj_rest_auth',
+    'dj_rest_auth',  ⭐
     ...
 ]
 ```
@@ -309,7 +323,7 @@ INSTALLED_APPS = [
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('api/v1/', include('articles.urls')),
-    path('accounts/', include('dj_rest_auth.urls')),
+    path('accounts/', include('dj_rest_auth.urls')),  ⭐
     # path('accounts/signup/', include('dj_rest_auth.registration.urls')),
 ]
 ```
@@ -321,7 +335,7 @@ urlpatterns = [
 - 패키지 추가 설치 (사전에 설치되어 있음)
 
 ```Bash
-$ pip install dj-rest-auth
+$ pip install dj-rest-auth[with_social]
 ```
 
 
@@ -370,9 +384,19 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('api/v1/', include('articles.urls')),
     path('accounts/', include('dj_rest_auth.urls')),
-    path('accounts/signup/', include('dj_rest_auth.registration.urls')),
+    path('accounts/signup/', include('dj_rest_auth.registration.urls')), ⭐
 ]
 ```
+
+- ### 바로 migrate 하면 에러남! => allauth 추가 후 migrate 진행!!
+```python
+# my_api/settings.py
+MIDDLEWARE = [
+    ...,
+    'allauth.account.middleware.AccountMiddleware', ⭐
+]
+```
+
 ```Bash
 $ python manage.py migrate
 ```
@@ -409,7 +433,7 @@ $ python manage.py migrate
 ## 🔵 Token 발급 (4/4)
 - 로그인 성공 후 DRF로부터 발급 받은 Token 확인
 
-=> **이제 이 Token을 Vue에서 별도로 저장하여 매 요청마다 함께 보내야 함**
+▶️ **이제 이 Token을 Vue에서 별도로 저장하여 매 요청마다 함께 보내야 함**
 
 ![alt text](image-5.png)
 
@@ -483,19 +507,19 @@ def article_list(request):
 
 
 ## 🔵 DRF가 제공하는 권한 정책
-1. **IsAuthenticated**
+### 1. **IsAuthenticated**
 - 인증된(로그인한) 사용자만 접근을 허용
 
-2. IsAdminUser
+### 2. IsAdminUser
 - 스태프 권한(is_staff=True)을 가진 관리자 사용자만 접근을 허용
 
-3. IsAuthenticatedOrReadOnly
+### 3. IsAuthenticatedOrReadOnly
 - 인증된 사용자는 모든 요청(읽기/쓰기)을 허용하고, 비인증 사용자는 읽기 전용 요청만 허용
 
-4. **AllowAny**
+### 4. **AllowAny**
 - 아무런 제한 없이 모든 사용자의 접근을 허용
 
-5. ...
+### 5. ...
 
 
 ## 🔵 1. IsAuthenticated
@@ -523,7 +547,7 @@ def article_list(request):
 - **비인증 사용자는 읽기만 허용하고, 인증된 사용자는 모든 요청(읽기/쓰기)을 허용**하는 권한 클래스
 
 ### 특징
-- 요청 메서드가 GET, HEAD, OPTIONS와 같은 안전한 메서드일 경우 무조건 허용하고, 그 외 메서드(POST, PUT 등)는 사용자의 인증 여부를 확인
+- 요청 메서드가 **GET, HEAD, OPTIONS(정보 요청 메서드)와 같은 안전한 메서드일 경우 무조건 허용**하고, **그 외 메서드(POST, PUT 등)는 사용자의 인증 여부를 확인**
 - 게시글 목록처럼 누구나 볼 수 있지만, 글 작성이나 수정은 회원만 가능한 API에 주로 적용
 
 
@@ -557,7 +581,7 @@ REST_FRAMEWORK = {
         'rest_framework.authentication.TokenAuthentication',
     ],
     
-    # permission
+    # permission  ⭐
     'DEFAULT_PERMISSION_CLASSES': [
         'rest_framework.permissions.AllowAny',
     ],
@@ -567,14 +591,14 @@ REST_FRAMEWORK = {
 
 ## 🔵 권한 활용하기 (1/4)
 - 만약 관리자만 전체 게시글 조회가 가능한 권한이 설정되었을 때, 인증된 일반 사용자가 조회 요청을 할 경우 어떻게 응답 확인하기
-- 테스트를 위해 임시로 관리자 관련 권한 클래스 IsAdminUser로 변경
+- 테스트를 위해 임시로 관리자 관련 권한 클래스 **IsAdminUser로 변경**
 
 ```Python
 # articles/views.py
-from rest_framework.permissions import IsAuthenticated, IsAdminUser
+from rest_framework.permissions import IsAuthenticated, IsAdminUser ⭐
 
 @api_view(['GET', 'POST'])
-@permission_classes([IsAuthenticated])
+@permission_classes([IsAuthenticated])  ⭐
 def article_list(request):
     pass
 ```
@@ -591,10 +615,10 @@ def article_list(request):
 
 ```Python
 # articles/views.py
-from rest_framework.permissions import IsAuthenticated
+from rest_framework.permissions import IsAuthenticated ⭐
 
 @api_view(['GET', 'POST'])
-@permission_classes([IsAuthenticated])
+@permission_classes([IsAuthenticated]) ⭐
 def article_list(request):
     pass
 ```
