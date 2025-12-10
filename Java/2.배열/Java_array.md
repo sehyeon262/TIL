@@ -64,13 +64,13 @@ nums[0] = 11;
 nums[1] = 7;
 nums[2] = 23;
 ```
-![alt text](image.png)
+![alt text](images/image.png)
 
 - 예시 2
 ```java
 int[] nums = new int[] {27, 54, 83};
 ```
-![alt text](image-1.png)
+![alt text](images/image-1.png)
 
 
 ## 📌 배열의 메모리 생성과정 – 문자열 배열
@@ -81,20 +81,20 @@ names[0] = "lime";
 names[1] = "pear";
 names[2] = "grape";
 ```
-![alt text](image-2.png)
+![alt text](images/image-2.png)
 
 - 예시 2
 ```java
 String[] names = new String[] {"pig", "cow", "fish"};
 ```
-![alt text](image-3.png)
+![alt text](images/image-3.png)
 
 
 ## 📌 배열의 인덱스
 - [] 안에 숫자를 넣어 해당 위치의 요소에 접근 가능
 - 인덱스는 0부터 시작
     - 예) 길이 5 → 인덱스: 0, 1, 2, 3, 4
-- 음수 사용 불가
+- **음수 사용 불가**
 - 범위를 벗어나면 예외 발생
 ```php
 예외 예시
@@ -121,7 +121,7 @@ for(int i = 0; i < intArray.length; i++){
 - index 대신 요소(element) 직접 접근하는 변수 제공
 - 값이 복사되므로 read-only 느낌
 
-![alt text](image-4.png)
+![alt text](images/image-4.png)
 
 
 ## 📌 배열의 출력
@@ -137,7 +137,7 @@ System.out.println(Arrays.toString(numbers));
 
 ## 📌 얕은 복사 (Shallow Copy)
 - 객체 내부의 참조 변수만 복사 → 같은 배열을 공유
-- 원복 객체와 복사본이 같은 참조를 가리키므로, 하나를 수정하면 다른 객체에도 영향 미침
+- 원복 객체와 복사본이 같은 참조를 가리키므로, **하나를 수정하면 다른 객체에도 영향 미침**
 
 ```java
 import java.util.Arrays;
@@ -159,7 +159,7 @@ public class ShallowCopyExample {
 
 ## 📌 깊은 복사 (Deep Copy)
 - 객체의 모든 필드 값을 새로 복사하여 독립적인 객체를 생성
-- 원본 객체와 복사본은 완전히 별개의 메모리 공간을 가지므로, 한 객체의 변경이 다른 객체에 영향X
+- 원본 객체와 복사본은 **완전히 별개의 메모리 공간**을 가지므로, **한 객체의 변경이 다른 객체에 영향X**
 
 ```java
 import java.util.Arrays;
@@ -179,20 +179,20 @@ public class DeepCopyExample {
 
 
 ## 📌 배열의 복사
-- 배열은 고정된 크기이므로 배열의 크기를 변경하고 싶다면 새로운 배열을 생성하여 복사해야함
+- **배열은 고정된 크기**이므로 **배열의 크기를 변경하고 싶다면 새로운 배열을 생성하여 복사**해야함
 
-![alt text](image-5.png)
+![alt text](images/image-5.png)
 
 
 ## 📌 배열의 복사 메서드
-- Arrays.copyOf() : 배열을 복사하여 새로운 배열을 생성
+- **Arrays.copyOf()** : 배열을 복사하여 새로운 배열을 생성
 ```java
 int[] original = {10, 20, 30};
 int[] copy = Arrays.copyOf(original, original.length);
 System.out.println(Arrays.toString(copy));  // 출력: [10, 20, 30]
 ```
 
-- Arrays.copyOfRange() : 배열의 특정 범위를 복사하여 새로운 배열을 생성
+- **Arrays.copyOfRange()** : 배열의 특정 범위를 복사하여 새로운 배열을 생성
 ```java
 int[] numbers = {10, 20, 30, 40, 50};
 int[] subArray = Arrays.copyOfRange(numbers, 1, 4);
@@ -258,7 +258,7 @@ String[] arr4 = {“pig”, “dog”, “cat”};
 - 일반적으로 2차원 배열(행렬 형태)가 많지만 3차원 이상도 가능
 - 표 형태 혹은 복잡한 계층 구조를 표현할 때 유용
 
-![alt text](image-6.png)
+![alt text](images/image-6.png)
 
 - 배열 객체의 참조 값을 요소로 갖는 배열
 - 2차원 배열은 배열 요소로 1차원 배열의 참조를 가지는 배열
@@ -271,13 +271,13 @@ String[] arr4 = {“pig”, “dog”, “cat”};
 ## 📌 2차원 배열
 - 배열의 각 요소가 또 다른 1차원 배열을 가리킴
 - 행(row)과 열(column)의 구조 / 테이블 구조 / 좌표 평면 구조 등
-- 2차원 배열의 각 요소(배열)는 크기는 일정해야 하는가? (O / X)
+- 2차원 배열의 각 요소(배열)는 크기는 일정해야 하는가? (O / **X**)
 
 
 ## 📌 2차원 배열 선언
-- 데이터타입[ ][ ] 배열이름 / int[][] arr1 = new int[3][3];
-- 데이터타입 배열이름[ ][ ] / int[] arr2[] = new int[3][3];
-- 데이터타입[ ] 배열이름[ ] / int arr3[][] = new int[3][3];
+- 데이터타입[ ][ ] 배열이름 / `int[][] arr1 = new int[3][3];` ⭐
+- 데이터타입 배열이름[ ][ ] / `int[] arr2[] = new int[3][3];`
+- 데이터타입[ ] 배열이름[ ] / `int arr3[][] = new int[3][3];`
 
 
 ## 📌 2차원 배열 초기화
@@ -307,9 +307,9 @@ int[][] scores = {{90,80,85,100},
                   {100,80,75,60},
                   {50,90,100,100}};
 ```
-![alt text](image-7.png)
+![alt text](images/image-7.png)
 
-![alt text](image-8.png)
+![alt text](images/image-8.png)
 
 
 ## 📌2차원 배열 메모리 구조
@@ -318,20 +318,20 @@ int [][] arr = new int[2][];
 
 arr[0] = new int[3];
 
-arr[1][1] = 100;
+arr[0][1] = 100;
 
 arr[1] = new int[3];
 
 arr[1][2] = 1000;
 ```
-![alt text](image-9.png)
+![alt text](images/image-9.png)
 
 
 
 ## 📝 2차원 배열 실습 문제 Q1 : 3의 배수는 나의 적!
 - 주어진 2차원 배열의 전체 요소를 순회하면서 해당 값이 3의 배수라면 0으로 바꾸어 출력하세요.
 
-![alt text](image-10.png)
+![alt text](images/image-10.png)
 
 
 ## 📝 2차원 배열 실습 문제 Q2 : 가장 시끄러운 자리는?
@@ -339,7 +339,7 @@ arr[1][2] = 1000;
 그러나 해당 자리의 진짜 소음은 자리의 소음과 (상,하,좌,우) + 모양의 소음 또한 같이 측정해야 한다.
 가장 시끄러운 자리는 어디인가?
 
-![alt text](image-11.png)
+![alt text](images/image-11.png)
 
 
 ## 📌3차원 배열 선언
@@ -358,7 +358,7 @@ arr[1][2] = 1000;
 
 ## 📌 다음 2x2 픽셀 이미지를 배열로 저장한다면?
 
-![alt text](image-12.png)
+![alt text](images/image-12.png)
 
 ```java
 // 2x2 이미지의 RGB 값 저장을 위한 3차원 배열 생성
