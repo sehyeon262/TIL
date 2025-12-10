@@ -94,7 +94,7 @@ def article_list(request):
 2. Migration 과정 재진행
 3. fixtures의 articles.json은 user 정보가 없으므로 loaddata 불가능
 
-    ![alt text](image.png)
+    ![alt text](images/image.png)
 
 
 ---
@@ -275,7 +275,7 @@ $ python manage.py migrate
 
 
 ## 🔵 토큰 인증 방식 과정 정리
-![alt text](image-1.png)
+![alt text](images/image-1.png)
 
 
 ---
@@ -413,21 +413,21 @@ $ python manage.py migrate
 - 라이브러리 설치로 인해 추가된 URL 목록 확인
     - http://127.0.0.1:8000/accounts/
 
-    ![alt text](image-2.png)
+    ![alt text](images/image-2.png)
 
 
 ## 🔵 Token 발급 (2/4)
 - 회원 가입 진행 (DRF 페이지 하단 회원 가입 form 사용)
     - http://127.0.0.1:8000/accounts/signup/
 
-    ![alt text](image-3.png)
+    ![alt text](images/image-3.png)
 
 
 ## 🔵 Token 발급 (3/4)
 - 로그인 진행 (DRF 페이지 하단 로그인 form 사용)
     - http://127.0.0.1:8000/accounts/login/
 
-    ![alt text](image-4.png)
+    ![alt text](images/image-4.png)
 
 
 ## 🔵 Token 발급 (4/4)
@@ -435,7 +435,7 @@ $ python manage.py migrate
 
 ▶️ **이제 이 Token을 Vue에서 별도로 저장하여 매 요청마다 함께 보내야 함**
 
-![alt text](image-5.png)
+![alt text](images/image-5.png)
 
 
 ## 🔵 Token 활용 (1/2)
@@ -455,7 +455,7 @@ $ python manage.py migrate
 1. **"Authorization"** HTTP Header에 포함
 2. 키 앞에는 문자열 **"Token"**이 와야 하며 **"공백"으로 두 문자열을 구분해야 함**
 
-    ![alt text](image-6.png)
+    ![alt text](images/image-6.png)
 
 
 ## 🔵 Token 데이터 확인
