@@ -21,7 +21,7 @@
   import { useRouter } from 'vue-router'
 
   const store = useArticleStore()
-  // const accountStore = useAccountStore()
+  const accountStore = useAccountStore()
   const router = useRouter()
 
   const title = ref(null)
@@ -35,9 +35,9 @@
         title: title.value,
         content: content.value
       },
-      // headers: {
-      //   'Authorization': `Token ${accountStore.token}`
-      // }
+      headers: {
+        'Authorization': `Token ${accountStore.token}`
+      }
     })        
       .then(res => {
         router.push({ name: 'ArticleView' })

@@ -522,7 +522,7 @@ export const useArticleStore = defineStore('article', () => {
       method: 'get',
       url: `${API_URL}/api/v1/articles/`,
       headers: {
-        'Authorization': `Token ${accountStore.token}` // token 추가 ⭐
+        'Authorization': `Token ${accountStore.token}` // header에 token 추가 !!! ⭐
       }
     })
    ...
@@ -536,9 +536,9 @@ export const useArticleStore = defineStore('article', () => {
 ```JavaScript
 // views/CreateView.vue
 
-import { useAccountStore } from '@/stores/accounts' 
+import { useAccountStore } from '@/stores/accounts' ⭐
 
-const accountStore = useAccountStore() 
+const accountStore = useAccountStore() ⭐
 
 const createArticle = function () {
   axios({
@@ -548,7 +548,7 @@ const createArticle = function () {
       // ... article data ...
     },
     headers: {
-      'Authorization': `Token ${accountStore.token}` // token 추가
+      'Authorization': `Token ${accountStore.token}` // token 추가 ⭐
     }
   })
   // ...
@@ -574,7 +574,7 @@ const createArticle = function () {
 
 
 ## 🔵 인증 상태 여부를 나타낼 속성 값 지정
-- token 소유 여부에 따라 로그인 상태를 나타낼 isLogin 변수 작성
+- **token 소유 여부에 따라 로그인 상태를 나타낼** isLogin 변수 작성
 - 그리고 **computed**를 활용해 token 값이 변경될 때만 이 상태를 다시 계산하도록 함
 
 > **computed** : 원본 데이터가 바뀔 때만, 값을 알아서 다시 계산해주는 ref
@@ -585,12 +585,12 @@ const createArticle = function () {
 export const useAccountStore = defineStore('account', () => {
   // ...
 
-  const isLogin = computed(() => { // isLogin 변수 작성
+  const isLogin = computed(() => { // isLogin 변수 작성 ⭐
     return token.value ? true : false
   })
 
   // ...
-  return { signUp, logIn, token, isLogin } // isLogin 반환
+  return { signUp, logIn, token, isLogin } // isLogin 반환 ⭐
 }, { persist: true })
 ```
 
@@ -603,14 +603,15 @@ export const useAccountStore = defineStore('account', () => {
 ```JavaScript
 // router/index.js
 
-import { useAccountStore } from '@/stores/accounts' 
+import { useAccountStore } from '@/stores/accounts'  ⭐
 
 const router = createRouter({ ... })
 
-router.beforeEach((to, from) => {
+router.beforeEach((to, from) => {  ⭐
   const accountStore = useAccountStore()
 
-  if (to.name === 'ArticleView' && !accountStore.isLogin) {
+  // 가려고 하는 곳이 ArticleView 이면 로그인 유무 확인 (목적지 확인 -> 로그인 유무 확인)
+  if (to.name === 'ArticleView' && !accountStore.isLogin) { 
     window.alert('로그인이 필요합니다.')
     return { name: 'LogInView' }
   }
@@ -783,6 +784,8 @@ const signUp = function (payload) {
 ## 🔵 RegisterSerializer 
 - dj-rest-auth의 RegisterSerializer의 field 정보 확인
 - username, email, password1, password2 필드만 정의되어 있음
+
+https://github.com/iMerica/dj-rest-auth/blob/master/dj_rest_auth/registration/serializers.py
 
 ```Python
 
@@ -980,7 +983,7 @@ export const useAccountStore = defineStore('account', () => {
     // ... axios login request ...
     .then(res => {
       token.value = res.data.key
-      router.push({ name: 'ArticleView' }) // 메인 페이지 이동 추가
+      router.push({ name: 'ArticleView' }) // 메인 페이지 이동 추가 ⭐
     })
     // ...
   }
@@ -999,8 +1002,8 @@ const signUp = function (payload) {
   // ... axios signup request ...
   .then(res => {
     // console.log('회원가입이 완료되었습니다.')
-    const password = payload.password1 // 비밀번호 저장
-    logIn({ username: payload.username, password }) // logIn 함수 호출
+    const password = payload.password1 // 비밀번호 저장 ⭐
+    logIn({ username: payload.username, password }) // logIn 함수 호출 ⭐
   })
   .catch(err => console.log(err))
 }
@@ -1014,7 +1017,7 @@ const signUp = function (payload) {
 
 
 ## 🔵 Django Signals
-- "이벤트 알림 시스템"
+- **"이벤트 알림 시스템"**
 - 애플리케이션 내에서 특정 이벤트가 발생할 때, 다른 부분에 신호를 보내 이벤트가 발생했음을 알릴 수 있음
 - 주로 모델의 데이터 변경 또는 저장, 삭제와 같은 작업에 반응하여 추가적인 로직을 실행하고자 할 때 사용
     - 예: 사용자가 새로운 게시글을 작성할 때마다 특정 작업(예: 이메일 알림 보내기)을 수행하려는 경우
@@ -1032,6 +1035,8 @@ def article_post_save(sender, instance, created, **kwargs):
     if created:
         print(f"새로운 게시글이 작성되었습니다! (제목: {instance.title})")
 ```
+
+![alt text](images/image-13.png)
 
 
 ---
@@ -1055,6 +1060,8 @@ def article_post_save(sender, instance, created, **kwargs):
 - 주의사항
     - 변수명은 반드시 VITE_ 접두어를 작성해야 함
     - 변수명과 값 사이에 공백이 없어야 함
+
+  ![alt text](images/image-14.png)
 
 ```JavaScript
 // JavaScript 코드에서 접근

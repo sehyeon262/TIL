@@ -1,7 +1,7 @@
 <template>
   <div>
     <h1>Sign Up Page</h1>
-    <!-- <form @submit.prevent="signUp">
+    <form @submit.prevent="signUp">
       <label for="username">username: </label>
       <input type="text" id="username" v-model.trim="username">
       <br>
@@ -15,31 +15,31 @@
       <input type="number" id="age" v-model.trim="age">
       <br>
       <input type="submit" value="signup">
-    </form> -->
+    </form>
   </div>
 </template>
 
 <script setup>
-  // import { useAccountStore } from '@/stores/accounts'
-  // import { ref } from 'vue'
+  import { useAccountStore } from '@/stores/accounts'
+  import { ref } from 'vue'
 
-  // const accountStore = useAccountStore()
+  const accountStore = useAccountStore()
 
-  // const username = ref(null)
-  // const password1 = ref(null)
-  // const password2 = ref(null)
-  // const age = ref(0)
+  const username = ref(null)
+  const password1 = ref(null)
+  const password2 = ref(null)
+  const age = ref(0)
 
-  // const signUp = function () {
-  //   const payload = {
-  //     username: username.value,
-  //     password1: password1.value,
-  //     password2: password2.value,
-  //     // age: age.value
-  //   }
-  //   accountStore.signUp(payload)
+  const signUp = function () {
+    const payload = {
+      username: username.value,
+      password1: password1.value,
+      password2: password2.value,
+      age: age.value
+    }
+    accountStore.signUp(payload)
     
-  // }
+  }
 
 </script>
 

@@ -162,6 +162,6 @@ AUTH_USER_MODEL = 'accounts.User'
 
 ACCOUNT_EMAIL_VERIFICATION = 'none'
 
-# REST_AUTH = {
-#     'REGISTER_SERIALIZER': 'accounts.serializers.CustomRegisterSerializer',
-# }
+REST_AUTH = {
+    'REGISTER_SERIALIZER': 'accounts.serializers.CustomRegisterSerializer',
+}

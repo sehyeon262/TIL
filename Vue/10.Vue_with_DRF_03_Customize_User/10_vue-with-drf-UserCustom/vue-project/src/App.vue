@@ -2,11 +2,11 @@
   <header>
     <nav>
       <RouterLink :to="{ name: 'ArticleView' }">Articles</RouterLink> | 
-      <!-- <RouterLink :to="{ name: 'SignUpView' }">SignUpPage</RouterLink> | -->
-      <!-- <RouterLink :to="{ name: 'LogInView' }">LogInPage</RouterLink> -->
-      <!-- <form @submit.prevent="logOut">
+      <RouterLink :to="{ name: 'SignUpView' }">SignUpPage</RouterLink> |
+      <RouterLink :to="{ name: 'LogInView' }">LogInPage</RouterLink>
+      <form @submit.prevent="logOut">
         <input type="submit" value="LogOut">
-      </form> -->
+      </form>
     </nav>
   </header>
   <RouterView />
@@ -14,12 +14,12 @@
 
 <script setup>
   import { RouterView, RouterLink } from 'vue-router'
-  // import { useAccountStore } from '@/stores/accounts'
+  import { useAccountStore } from '@/stores/accounts'
 
-  // const accountStore = useAccountStore()
-  // const logOut = function () {
-  //   accountStore.logOut()
-  // }
+  const accountStore = useAccountStore()
+  const logOut = function () {
+    accountStore.logOut()
+  }
 </script>
 
 <style scoped>
