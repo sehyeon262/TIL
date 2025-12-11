@@ -44,7 +44,7 @@
 
 - 웹 서비스는 여러 개의 Component로 이루어져 있음
 
-    ![alt text](image.png)
+    ![alt text](images/image.png)
 
 
 ## Single-File Components (SFC)
@@ -423,7 +423,7 @@ VITE v7.0.4  ready in 1216 ms
 
 ## node_modules의 의존성 깊이
 
-![alt text](image-1.png)
+![alt text](images/image-1.png)
 
 > 💡 **node_modules**: npm install로 설치한 모든 패키지들이 모여있는 저장소
 
@@ -499,7 +499,7 @@ https://vitejs.dev/guide/assets.html#the-public-directory
 - **실제로 우리가 작업**하게 될 대부분의 소스 코드가 위치
 - 컴포넌트, 스타일, 라우팅 등 프로젝트의 **핵심 코드를 관리**
 
-![alt text](image-2.png)
+![alt text](images/image-2.png)
 
 
 ## 2.1 src/assets
@@ -507,7 +507,7 @@ https://vitejs.dev/guide/assets.html#the-public-directory
 - 컴포넌트 자체에서 참조하는 내부 파일을 저장하는데 사용
 - 컴포넌트가 아닌 곳에서는 public 디렉토리에 위치한 파일을 사용
 
-![alt text](image-3.png)
+![alt text](images/image-3.png)
 
 
 ## 2.2 src/components
@@ -515,7 +515,7 @@ https://vitejs.dev/guide/assets.html#the-public-directory
 - 실제로 우리가 작업하게 될 대부분의 소스 코드가 위치
 - 컴포넌트, 스타일, 라우팅 등 프로젝트의 핵심 코드를 관리
 
-![alt text](image-4.png)
+![alt text](images/image-4.png)
 
 
 ## ⭐ 2.3 src/App.vue 
@@ -523,14 +523,14 @@ https://vitejs.dev/guide/assets.html#the-public-directory
 - 다른 하위 컴포넌트들을 포함
 - 애플리케이션 전체의 레이아웃과 공통적인 요소를 정의
 
-![alt text](image-5.png)  ![alt text](image-6.png)
+![alt text](images/image-5.png)  ![alt text](images/image-6.png)
 
 
 ## 2.4 src/main.js
 - Vue 애플리케이션을 초기화하고, App.vue를 DOM에 마운트하는 시작점
 - 필요한 라이브러리를 import 하고 전역 설정을 수행
 
-![alt text](image-7.png)
+![alt text](images/image-7.png)
 
 
 ## 3. index.html
@@ -542,7 +542,7 @@ https://vitejs.dev/guide/assets.html#the-public-directory
 - 필요한 스타일 시트, 스크립트 등의 외부 리소스를
 로드 할 수 있음 (ex. bootstrap CDN)
 
-![alt text](image-8.png)
+![alt text](images/image-8.png)
 
 > 💡 **마운트**: 만들어진 앱을 HTML로 보여주는 것
 
@@ -557,7 +557,7 @@ https://vitejs.dev/guide/assets.html#the-public-directory
     - Vite 프로젝트 설정 파일
     - 플러그인, 빌드 옵션, 개발 서버 설정 등
 
-![alt text](image-9.png)
+![alt text](images/image-9.png)
 
 > 💡 **컴파일 옵션** : 디버깅, 최적화 등 컴파일의 세부 방식을 제어하는 명령어
 
@@ -578,7 +578,7 @@ https://vitejs.dev/guide/assets.html#the-public-directory
 
 > 💡 **메타데이터** : 데이터를 설명해주는 데이터
 
-![alt text](image-10.png)
+![alt text](images/image-10.png)
 
 
 ## 5.1 package.json 특징
@@ -596,7 +596,7 @@ https://vitejs.dev/guide/assets.html#the-public-directory
 - 실제로 어느 버전의 패키지가 설치되었는지 확정하고 기록
 - 다른 환경에서도 동일한 패키지 구성을 재현 가능하게 함
 
-![alt text](image-14.png)
+![alt text](images/image-14.png)
 
 
 ## 5.2 package-lock.json 특징
@@ -616,7 +616,7 @@ https://vitejs.dev/guide/assets.html#the-public-directory
 - 프로젝트 실행 시 필요한 모든 라이브러리와 코드 파일을 보관
 - 애플리케이션 구동 시 참조되는 실제 데이터 저장소
 
-![alt text](image-13.png)
+![alt text](images/image-13.png)
 
 
 ## 5.3 node_modules 특징
@@ -712,7 +712,7 @@ import MyComponent from '@/components/MyComponent.vue' // 1. component 불러오
 ## 결과 확인
 - Vue dev tools를 사용해 컴포넌트 관계 확인 가능
 
-![alt text](image-15.png)
+![alt text](images/image-15.png)
 
 
 ## 추가 하위 컴포넌트 등록 후 활용
@@ -813,7 +813,7 @@ App.vue
 3. Virtual DOM을 실제 DOM에 마운트
 4. 컴포넌트의 데이터(반응형 상태)가 바뀔 때마다 새로운 가상돔을 만들어 이전과 비교하고 바뀐 부분만 효율적으로 찾아 실제 DOM을 업데이트
 
-![alt text](image-16.png)
+![alt text](images/image-16.png)
 
 
 ## Virtual DOM 패턴의 장점
@@ -1045,7 +1045,7 @@ MyComponent
 
 ➤ 프론트엔드 앱의 사용 목적이 점점 더 복잡해짐에 따라, 단순 파일 유형으로만 분리하게 될 경우 프로젝트의 목표를 달성하는데 도움이 되지 않게 됨
 
-![alt text](image-17.png)
+![alt text](images/image-17.png)
 
 
 --
