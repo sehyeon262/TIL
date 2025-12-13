@@ -11,12 +11,25 @@
 ---
 
 
+# 🎯 학습 목표
+- 함수 선언/호출 규칙과 매개변수 전달 방식을 이해하고 설명할 수 있다.
+
+- 클래스 정의의 문법을 사용해 (사용자 정의 자료형을) 설계/구현할 수 있다.
+
+- 생성자(기본/매개변수 생성자)와 this() 호출 규칙을 활용해 객체 초기화를 제어할 수 있다.
+
+- 객체지향프로그래밍을 이해하고 설명할 수 있다.
+
+
+---
+
+
 # ✅ 함수 
 
 
 ## 🔵 함수(Function)
 - 특정 작업을 수행하는 코드 블록
-- 반복적으로 사용되는 코드를 재사용 가능하게 만들어 가독성과 유지 보수성을 향상시킴
+- 반복적으로 사용되는 코드를 재사용 가능하게 만들어 **가독성**과 **유지 보수성**을 향상시킴
 - ex) 1 ~ 5 까지 더해줘, 6 ~ 10 까지 더해줘 등
 
 
@@ -44,7 +57,7 @@ void printHelloWorld() {
 
 
 ## 🔵 사람의 정보를 관리하자. (배열 도입)
-![alt text](image.png)
+![alt text](images/image.png)
 
 ```java
 String[] names = new String[2];
@@ -63,7 +76,7 @@ hobbies[1] = "Golf";
 
 ## 🔵 사람의 정보를 관리하자.
 
-![alt text](image-1.png)
+![alt text](images/image-1.png)
 
 ```java
 public class Person {
@@ -92,7 +105,7 @@ info(name, age, hobby){
 
 
 ## 🔵 사람의 정보를 관리하자.
-![alt text](image-2.png)
+![alt text](images/image-2.png)
 
 ```java
 public class Person {
@@ -428,7 +441,7 @@ public class Dog {
 - 객체(Object): 데이터와 관련된 알고리즘(메서드)를 하나의 단위로 묶어 놓은 것
 - 객체 모델링 : 현실세계의 객체를 SW 객체로 설계하는 것
     
-    ![alt text](image-3.png)
+    ![alt text](images/image-3.png)
 
 
 ## 🔵 객체지향 프로그래밍 특징 ( A PIE )
