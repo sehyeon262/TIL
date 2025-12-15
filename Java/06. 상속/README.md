@@ -28,7 +28,7 @@
 
 
 ## 🔵 상위 클래스의 속성과 메서드를 물려받아 확장하여 새로운 자식 클래스를 정의하는 것
-![alt text](image.png)
+![alt text](images/image.png)
 
 
 ## 🔵 사람과 학생
@@ -60,7 +60,7 @@ public class Student {
 
 
 ## 🔵 사람과 학생
-![alt text](image-1.png)
+![alt text](images/image-1.png)
 
 ```java
 public class Person {
@@ -84,7 +84,7 @@ public class Student extends Person {
 
 
 ## 🔵 틀린 그림 찾기
-![alt text](image-2.png)
+![alt text](images/image-2.png)
 
 
 ## 🔵 상속의 특징
@@ -93,7 +93,7 @@ public class Student extends Person {
 - extends 키워드 사용
 - 상속을 명시하지 않으면 기본적으로 Object 클래스를 상속 받고 있음
 
-    ![alt text](image-3.png)
+    ![alt text](images/image-3.png)
 
 ※ 공통된 기능을 상위 클래스에 정의 -> 상위 클래스 변경 시 모든 하위 클래스 적용
 
@@ -331,7 +331,7 @@ public class Student extends Person {
 - 모든 클래스는 직접적으로나 간접적으로 Object를 상속 받음
 - Object의 멤버는 모든 클래스의 멤버
 
-    ![alt text](image-4.png)
+    ![alt text](images/image-4.png)
 
 
 ## 🔵 toString() 메서드
@@ -412,7 +412,7 @@ class Person {
 ## 🔵 hashCode() 메서드
 - HashSet, HashMap 등에서 객체의 동일성을 확인하기 위해 사용
 
-    ![alt text](image-5.png)
+    ![alt text](images/image-5.png)
 
 - equals 메서드를 재정의 할 때는 반드시 hashCode()도 재정의 할 것
 - 미리 작성된 String이나 Number 등에서 재정의 된 hashCode() 활용 권장
@@ -440,7 +440,7 @@ public class Main {
 - finalize()
 - wait() / notify()
 
-    ![alt text](image-6.png)
+    ![alt text](images/image-6.png)
 
 
 ---
