@@ -1,4 +1,4 @@
-# Java - Baekjoon Algorithm
+# Java - Baekjoon
 ### 백준 알고리즘 문제를 Java로 풀이한 코드를 정리한 디렉토리입니다.
 
 ### 코딩 테스트 대비 및 Java 문법·자료구조·알고리즘 구현 연습을 목적으로 합니다.
