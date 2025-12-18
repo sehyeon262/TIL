@@ -1,3 +1,4 @@
+package BaekJoon;
 import java.util.Scanner;
 
 public class 브론즈_1330_두수비교하기 {
