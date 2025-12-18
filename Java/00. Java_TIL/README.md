@@ -647,3 +647,194 @@ if (s.charAt(i) == "a") // ❌
 ```java
 if (s.charAt(i) == 'a') // ⭕
 ```
+
+
+---
+
+
+# 2차원 배열 응용
+
+## 1️⃣ 2차원 배열에서의 입력
+- 2차원 배열은 **배열 안에 배열이 있는 구조**로 표현됨
+```java
+int[][] matrix = {
+    {1, 2},
+    {3, 4}
+};
+```
+- 가장 바깥쪽 배열이 "행(row)"들을 모아놓은 것
+- 각 내부 배열은 한 "행"에 해당함.
+- 내부 배열의 각 요소가 "열(Column)" 값이 됨.
+
+
+### ◾ 2차원 배열 생성과 입력 예시
+
+#### 2차원 배열 생성
+- 다음 코드는 2차원 배열을 생성하는 가장 기본적인 코드임
+```java
+int[][] matrix = new int[rows][cols];
+```
+
+- 이 코드는 2차원 배열 생성을 위한 기본 문법임.
+- `rows` 는 배열의 행 개수를, cols 는 각 행에 포함될 열의 개수를 나타냄
+- `new int[rows][cols]` 구문은 행의 개수와 각 행의 열의 개수를 기반으로 메모리를 할당하며, 각 요소는 초기값 0으로 설정.
+- 이렇게 생성된 배열은 고정된 크기를 가지며, 생성 후에는 행과 열의 개수를 변경할 수 없음.
+
+---
+
+### ◾ 2차원 배열 입력과 생성
+
+#### 아래 예시는 사용자로부터 행(Row)과 열(Column)의 개수를 입력받아, 해당 크기의 2차원 배열을 원하는 크기로 생성하는 방법을 보여줍니다.
+```java
+import java.util.Scanner;
+
+public class Main {
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+
+        System.out.print("행(Row) 개수를 입력하세요: ");
+        int rows = sc.nextInt();
+
+        System.out.print("열(Column) 개수를 입력하세요: ");
+        int cols = sc.nextInt();
+
+        int[][] matrix = new int[rows][cols];
+
+        for (int i = 0; i < rows; i++) {
+            System.out.println("값을 공백으로 구분하여 입력하세요:");
+            for (int j = 0; j < cols; j++) {
+                matrix[i][j] = sc.nextInt();
+            }
+        }
+
+        System.out.println("입력받은 2차원 배열(matrix):");
+        for (int i = 0; i < rows; i++) {
+            for (int j = 0; j < cols; j++) {
+                System.out.print(matrix[i][j] + " ");
+            }
+            System.out.println();
+        }
+    }
+}
+```
+
+## 2️⃣ 단순 탐색 및 출력
+- 2차원 배열을 순회(탐색)하기 위해서는 이중 for문을 사용하는 것이 일반적임.
+
+### ◾ 탐색 예시 코드
+```java
+for (int i = 0; i < rows; i++) {        // 행 인덱스 반복
+    for (int j = 0; j < cols; j++) {    // 열 인덱스 반복
+        System.out.print(matrix[i][j] + " ");
+    }
+    System.out.println();  // 각 행이 끝날 때 줄바꿈
+}
+```
+#### 설명
+- 외부 반복문 (`for (int i = 0; i < rows; i++)`) 은 행(row)을 제어합니다.
+- 내부 반복문 (`for (int j = 0; j < cols; j++)`) 은 열(column)을 제어합니다.
+- `matrix[i][j]` 로 해당 위치의 값을 접근하여 출력합니다.
+- `println()` 은 한 행 출력이 끝난 후 줄바꿈을 위해 사용합니다.
+
+---
+
+### ◾ 탐색 순서 예시
+- `matrix = {{3, 1}, {4, 2}}` 일 때, 위 코드를 실행하면 출력은 다음과 같은 순서로 진행됩니다.
+```
+3 1
+4 2
+```
+
+- 먼저 행 i = 0 일 때 열 j = 0, 1 순으로 3, 1 을 출력하고 줄바꿈
+- 그 다음 행 i = 1 일 때 열 j = 0, 1 순으로 4, 2 를 출력하고 줄바꿈
+
+
+## 3️⃣ 새로운 배열 만들기: 원본 배열을 2배로 복사하기
+
+#### 기존 2차원 배열을 기반으로 새로운 배열을 만들 때, 모든 요소의 값을 2배로 복사하여 새로운 배열을 생성할 수 있습니다. 
+- 예를 들어, 원본 배열의 모든 값에 2를 곱하여 새로운 배열을 생성할 수 있음
+
+### ◾ 새 배열 생성 예시 (모든 요소 2배로 복사)
+```java
+int[][] newMatrix = new int[rows][cols];
+
+for (int i = 0; i < rows; i++) {
+    for (int j = 0; j < cols; j++) {
+        // 각 요소에 2를 곱하여 새로운 배열에 추가
+        newMatrix[i][j] = matrix[i][j] * 2;
+    }
+}
+
+System.out.println("새롭게 생성된 배열(newMatrix):");
+for (int i = 0; i < rows; i++) {
+    for (int j = 0; j < cols; j++) {
+        System.out.print(newMatrix[i][j] + " ");
+    }
+    System.out.println();
+}
+```
+
+#### 실행 예시
+- 만약 `matrix = {{1, -1}, {0, 5}}` 라면,
+    - `matrix[0][0] = 1` → `1 * 2 = 2`
+    - `matrix[0][1] = -1` → `-1 * 2 = -2`
+    - `matrix[1][0] = 0` → `0 * 2 = 0`
+    - `matrix[1][1] = 5` → `5 * 2 = 10`
+    
+- 따라서 `new_matrix = {{2, -2}, {0, 10}}` 가 됩니다.
+
+
+## 4️⃣ 하나의 위치 인덱스를 찾아 값 접근 혹은 바꾸기
+- 2차원 배열에서 특정 위치의 값을 변경하거나 읽어야 할 때는 행과 열 인덱스를 알고 있어야 합니다.
+
+#### 값 접근 예시
+```java
+Scanner sc = new Scanner(System.in);
+System.out.print("접근하고 싶은 행 인덱스를 입력하세요: ");
+int rIdx = sc.nextInt();
+
+System.out.print("접근하고 싶은 열 인덱스를 입력하세요: ");
+int cIdx = sc.nextInt();
+
+if (rIdx >= 0 && rIdx < rows && cIdx >= 0 && cIdx < cols) {
+    System.out.println("matrix[" + rIdx + "][" + cIdx + "] 값: " + matrix[rIdx][cIdx]);
+} else {
+    System.out.println("잘못된 인덱스입니다.");
+}
+```
+---
+#### 값 변경 예시
+```java
+System.out.print("변경하고자 하는 새 값을 입력하세요: ");
+int valueToUpdate = sc.nextInt();
+
+if (rIdx >= 0 && rIdx < rows && cIdx >= 0 && cIdx < cols) {
+    matrix[rIdx][cIdx] = valueToUpdate;
+    System.out.println("matrix[" + rIdx + "][" + cIdx + "] 값이 " + valueToUpdate + "로 변경되었습니다.");
+} else {
+    System.out.println("잘못된 인덱스입니다.");
+}
+```
+
+#### 설명
+- 접근/변경하고자 하는 인덱스를 사용자 입력 등으로 얻습니다.
+- 유효한 범위인지 확인(인덱스 에러 방지) 후 값을 읽거나 변경합니다.
+- 자바에서의 2차원 배열은 기본적으로 0부터 시작하는 인덱스를 사용합니다.
+
+
+## 📚 정리
+- 2차원 배열은 자바에서 복잡한 데이터를 관리하고 처리하는 데 유용한 구조입니다.
+
+- 배열 안에 배열이 있는 형태로, 행(row)과 열(column)로 데이터를 정리할 수 있습니다.
+
+- 데이터를 입력 받아 2차원 배열 생성 시, 이중 for문을 사용합니다.
+
+- 단순 탐색 및 출력 역시 이중 for문을 활용해 진행합니다.
+
+- 새로운 배열을 만들 때는 기존 배열의 조건에 따라 값을 필터링하거나 변환하여 저장할 수 있습니다.
+
+- 특정 위치의 값을 찾거나 바꿀 때는 행 인덱스와 열 인덱스가 필요하며, 범위를 벗어나지 않는지 체크해야 합니다.
+
+
+---
+
