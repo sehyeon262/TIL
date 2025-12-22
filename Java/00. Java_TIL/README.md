@@ -880,3 +880,42 @@ a.equalsIgnoreCase(b)
 
 - ### 문자열 비교는 무조건 => `equals()` 
 - ### 주소 비교 => `==`
+
+
+---
+
+
+# length() vs length 사용 기준
+
+## 🔑 한 줄 결론
+
+- #### 문자열(String) → length()
+- #### 배열(Array)   → length
+
+
+## 1️⃣ length() 👉 문자열(String)
+- **메서드**라서 () 붙음
+- 문자열 안의 **문자 개수**
+
+```java
+String s = "hello";
+System.out.println(s.length()); // 5
+```
+
+### 왜 메서드일까?
+- String은 클래스
+- 길이를 구하는 **기능(동작)** → 메서드
+
+
+## 2️⃣ length 👉 배열(Array)
+- **변수(필드)** 라서 () 없음
+- 배열의 **칸 개수**
+
+```java
+int[] arr = {1, 2, 3};
+System.out.println(arr.length); // 3
+```
+```java
+String[] words = {"hello", "world"};
+System.out.println(words.length); // 2
+```
