@@ -1,12 +1,12 @@
 # 📘 TIL (Today I Learned)
-### SSAFY(삼성 청년 SW 아카데미)에서 학습한 내용과 개인적인 성장 기록을 체계적으로 정리한 저장소입니다.
-하루하루 배운 개념, 코드, 문제풀이, 프로젝트 경험 등을 체계적으로 기록하며 성장하는 것이 목표입니다.
+
+#### 하루하루 배운 개념, 코드, 문제풀이, 프로젝트 경험 등을 체계적으로 기록하며 성장하는 것이 목표입니다.
 
 
 ---
 
 
-# ⭐ What This Repository Shows
+## ⭐ What This Repository Shows
 
 ### ✓ 꾸준한 자기주도 학습 능력
 - 매일 또는 주기적으로 배운 내용을 정리하며 습관화된 학습 유지
@@ -34,7 +34,7 @@
 ---
 
 
-# 📂 Repository Structure
+## 📂 Repository Structure
 학습이 진행됨에 따라 지속적으로 확장됩니다.
 
 ### 🔹 Algorithm
@@ -49,7 +49,7 @@
 ---
 
 
-# ⚙️ Tech Stack
+## ⚙️ Tech Stack
 | 분야       | 기술                           |
 | -------- | ---------------------------- |
 | Language | Python, Java                 |
@@ -62,7 +62,7 @@
 ---
 
 
-# 🎯 Learning Goals
+## 🎯 Learning Goals
 - SSAFY 교육 과정 전반을 체계적으로 정리
 
 - 언어 / 웹 / 알고리즘 / 프로젝트 역량 균형 있게 성장
