@@ -300,6 +300,7 @@ String empty = "";
 - 문자열을 정수나 실수로 변환할 수 있음
 - `Integer.parseInt()` -> 정수로 변환
 - `Double.parseDouble()` -> 실수로 변환
+
 ```java
 String g = "20";    // 문자열 "20"
 String h = "15.5";  // 문자열 "15.5"
