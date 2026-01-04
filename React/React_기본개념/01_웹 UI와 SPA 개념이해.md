@@ -15,7 +15,7 @@
     - **컨트롤(Control)**: 버튼, 입력 필드, 체크박스 등
     - **정보 표시 영역**: 표, 차트, 이미지, 텍스트
 
-    ![alt text](image-4.png)
+    ![alt text](images/image-4.png)
 
 - 웹 UI는 단순히 디자인이 아니라, 사용자가 **어떻게 데이터를 입력하고, 어떻게 결과를 확인할 것인지**를 정의하는 핵심 요소입니다.
 
@@ -59,7 +59,7 @@
 | 서버 부하 | HTML 전체 생성 | 데이터만 응답 |
 | SEO | 유리 | 불리 |
 
-![alt text](image-5.png)
+![alt text](images/image-5.png)
 
 
 ## 6. SPA를 가능하게 한 기술
