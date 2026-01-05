@@ -59,7 +59,7 @@
 
 2. 순서도
 
-    ![alt text](image.png)
+    ![alt text](images/image.png)
 
 3. 의사코드(pseudocode)
 
@@ -91,7 +91,7 @@ public static int sum(int n) {
 
 
 ### ◾ 예제) 1 부터 100까지 합을 구하는 문제
-![alt text](image-1.png)
+![alt text](images/image-1.png)
 
 
 ### ◾ 시간 복잡도(Time Complexity)
@@ -100,7 +100,7 @@ public static int sum(int n) {
 
 - 입력 크기가 커졌을 때 알고리즘의 처리 시간이 어떻게 증가하는지를 파악함으로써 향후 대규모 데이터에 대해서도 효율적으로 동작할지 예측 가능
 
-    ![alt text](image-2.png)
+    ![alt text](images/image-2.png)
 
 
 ### ◾ 빅-오(O) 표기법
@@ -114,7 +114,7 @@ public static int sum(int n) {
 
 - 계수(Coefficient)는 생략하여 표시
 
-    ![alt text](image-3.png)
+    ![alt text](images/image-3.png)
 
 
 ### ◾ 자주 사용되는 빅-오(O) 표기
@@ -134,11 +134,11 @@ public static int sum(int n) {
 ### ◾ 다양한 시간 복잡도의 비교
 - 요소 수의 증가함에 따라 각기 다른 시간 복잡도의 알고리즘은 아래와 같은 연산 수를 보임
 
-    ![alt text](image-4.png)
+    ![alt text](images/image-4.png)
 
 
 ### ◾ 시간 복잡도 별 실제 실행 시간 비교
-![alt text](image-5.png)
+![alt text](images/image-5.png)
 
 
 ### ◾ SW 문제를 완벽하게 풀기 위한 5단계
@@ -179,7 +179,7 @@ public static int sum(int n) {
 ### ◾ 배열(Array)
 - 동일한 데이터 타입의 값(0개 이상)들을 저장하기 위한 자료구조
 
-    ![alt text](image-6.png)
+    ![alt text](images/image-6.png)
 
 
 ### ◾ 배열의 필요성
@@ -201,7 +201,7 @@ public static int sum(int n) {
 
     - 자료형[] 배열이름 = new 자료형[길이];
     
-    ![alt text](image-7.png)
+    ![alt text](images/image-7.png)
 
 
 ### ◾ 1차원 배열의 요소 접근
@@ -211,16 +211,16 @@ public static int sum(int n) {
 - `nums[0] = 10;`  // 배열 nums의 0번째 원소에 10을 저장
 - `nums[idx] = 20;`  // 배열 nums의 idx번째 원소에 20을 저장 (idx = 4)
 
-    ![alt text](image-8.png)
+    ![alt text](images/image-8.png)
 
 
 ### ◾ 1차원 배열의 순회
 - 배열의 요소를 빠짐 없이 탐색하는 방법
-    ![alt text](image-9.png)
+    ![alt text](images/image-9.png)
 
 
 - 특정 인덱스를 기준으로 양쪽으로 이동
-    ![alt text](image-10.png)
+    ![alt text](images/image-10.png)
 
 
 ### ◾ Scanner
@@ -246,7 +246,7 @@ public static int sum(int n) {
 7
 1342035
 ```
-![alt text](image-11.png)
+![alt text](images/image-11.png)
 
 
 ### ◾ 연습 문제 : Gravity
@@ -263,7 +263,7 @@ public static int sum(int n) {
 
 - 회전 결과, B상자의 낙차는 6, C상자의 낙차는 1이다.
 
-    ![alt text](image-12.png)
+    ![alt text](images/image-12.png)
 
 
 ---
@@ -309,30 +309,30 @@ public static int sum(int n) {
 - 범위를 줄여 나가며 N-1번 정도 반복 수행하면 정렬 완료
 
 ####  Swap 방식
-![alt text](image-13.png)
+![alt text](images/image-13.png)
 
 
 ### ◾ 버블 정렬(Bubble Sort) 과정 { 55, 7, 78, 12, 42 } (오름차순)
 - 첫 번째 사이클
 
-    ![alt text](image-14.png)
+    ![alt text](images/image-14.png)
 
 - 두 번째 사이클
 
-    ![alt text](image-15.png)
+    ![alt text](images/image-15.png)
 
 - 세 번째 사이클
 
-    ![alt text](image-16.png)
+    ![alt text](images/image-16.png)
 
 - 네 번째 사이클
 
-    ![alt text](image-17.png)
+    ![alt text](images/image-17.png)
 
 - 다섯 번째 사이클
     - 남은 원소가 하나이므로 이미 정렬된 것으로 볼 수 있음
 
-    ![alt text](image-18.png)
+    ![alt text](images/image-18.png)
 
 
 ### ◾ 버블 정렬(Bubble Sort) 의사 코드
