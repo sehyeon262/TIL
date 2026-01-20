@@ -1,11 +1,11 @@
-## TypeScript란?
+## 🔵 TypeScript란?
 **TypeScript = JavaScript + 타입(Type)**
 
 
 ---
 
 
-## React 최소 개념 (이거 모르면 RN 이해 안 됨)
+## 🔵 React 최소 개념 (이거 모르면 RN 이해 안 됨)
 ### 1️⃣ 꼭 알아야 할 4개
 #### ① 함수형 컴포넌트
 ```ts
@@ -194,7 +194,7 @@ navigation.navigate("Detail", { id: 1 });
 ---
 
 
-## React(TypeScript) vs React Native(TypeScript)
+## 🔵 React(TypeScript) vs React Native(TypeScript)
 
 ### 1️⃣ 같은 점 (핵심 개념은 90% 동일)
 ✔️ **타입스크립트 문법**
