@@ -1,4 +1,4 @@
-## 전체 코드
+## `StudentCard.tsx` 전체 코드
 ```tsx
 import { StyleSheet, Text, View, Image, Pressable } from 'react-native'
 
