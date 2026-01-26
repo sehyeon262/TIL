@@ -203,3 +203,71 @@ VSCode에서 `<BackButton` 입력 시 `onPress`, `size` 자동으로 뜸
 
 ## 📑 한 문장 요약
 **interface는 컴포넌트가 받을 props의 타입과 구조를 미리 정의하는 설계도이다.**
+
+
+---
+
+
+# State(상태)
+
+## ◼️ 예시 코드 : `WeeklyCalendar.tsx`
+
+### 1️⃣ 전체 구조 한 번에 보기
+```ts
+const [
+  상태값,
+  상태를바꾸는함수
+] = useState<상태의타입>(초기값)
+```
+
+### 2️⃣ useState는 배열을 반환한다
+```tsx
+useState(...)  // 결과
+→ [값, 값을바꾸는함수]
+```
+
+그래서 **배열 구조 분해 할당**을 쓰는 거야.
+```ts
+const arr = [10, () => {}]
+
+const [a, b] = arr
+// a = 10
+// b = 함수
+```
+
+👉 리액트의 useState도 정확히 이 구조
+
+
+### 3️⃣ selectedDate의 타입 구조 (가장 중요)
+```ts
+useState<Date | null>
+```
+- `selectedDate`는 `Date`일 수도 있고, `null`일 수도 있다
+
+- 왜 null이 필요할까?
+  - 아직 날짜를 선택 안 했을 때 상태를 표현하기 위해서
+```ts
+null = 선택 안 됨
+Date = 선택됨
+```
+
+
+### 4️⃣ 초기값 null의 의미
+```ts
+useState<Date | null>(null)
+```
+
+👉 컴포넌트가 처음 렌더링될 때
+```ts
+selectedDate === null
+```
+
+즉,
+- 아직 아무 날짜도 클릭 안 함
+- Apply 버튼 비활성화 상태
+
+이 로직이 여기랑 연결됨 👇
+```ts
+disabled={!selectedDate}
+```
+
