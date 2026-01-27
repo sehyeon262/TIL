@@ -1,6 +1,7 @@
 ## 📌 목차
 - [Props](#Props)
 - [Interface](#Interface)
+- [State(상태)](#State(상태))
 
 
 ---
@@ -271,3 +272,45 @@ selectedDate === null
 disabled={!selectedDate}
 ```
 
+
+---
+
+
+# Date 사용방법
+
+## Date 객체 생성
+- 아래와 같이 여러 방법으로 Date 객체를 생성함
+- 객체의 메소드를 이용해 날짜 정보를 관리할 수 있음
+```ts
+const date1: Date = new Date(1919, 2, 1) // 1919-03-01 00:00:00
+const date2: Date = new Date(1919, 2, 1, 19, 24, 51); // 1919-03-01 19:24:51
+const date3: Date = new Date('1919-03-01 19:24:51')
+```
+
+## 현재 시간 반환 (get)
+```ts
+// Thu Jan 05 2023 23:10:06 GMT+0900 (대한민국 표준시)
+console.log(Date());
+
+const today = new Date();
+// Thu Jan 05 2023 23:10:06 GMT+0900 (대한민국 표준시)
+console.log(today.toString());
+```
+- 위 처럼 함수를 호출하여 현재 날짜를 반환할 수도 있고 
+- 객체를 생성하여 반환할 수도 있으며 
+- 위 두 방법으로 모두 현재 날짜를 얻을 수 있음
+
+
+## Date의 인스턴스 메소드
+
+### 년, 월, 일
+```ts
+const today: Date = new Date();
+const year: number = today.getFullYear();
+const month: number = today.getMonth() + 1;
+const date: number = today.getDate();
+console.log(`${year}-${month}-${date}`)
+```
+- month만 1을 더해줌 => `getMonth()` 함수가 0-11의 값을 반환하기 때문
+- get 뒤에 UTC를 붙이면 현지 시간이 아닌 국제시간을 기준으로 시간을 반환하여 사용할 수 있음
+ 
