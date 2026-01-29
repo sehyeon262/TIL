@@ -1,270 +1,247 @@
 ## `LeftSidebar.tsx` 전체 코드
 ```tsx
-// 교사용 공용 메뉴 (왼쪽 사이드바) 
-
-import { StyleSheet, Text, View, Pressable, Modal, TextInput } from 'react-native'
-import { useState } from 'react'
-
-const classes = ["1-1", "1-2", "1-3", "1-4"]
+import { StyleSheet, Text, View, Pressable, Modal, TextInput, Alert, ActivityIndicator } from 'react-native'
+import { useState, useEffect } from 'react'
+import DraggableFlatList from 'react-native-draggable-flatlist'
+import { useDispatch, useSelector } from 'react-redux';
+import { AppDispatch, RootState } from '../../store/stores';
+import { addClass, resetStatus, fetchClasses, setSelectedClassId, fetchClassDetail } from '../../store/slices/classSlice';
 
 const LeftSidebar = () => {
-  // selected : 현재 선택된 반 (처음 값은 "1-1")
-  // setSelected : selected 값을 바꾸는 함수
-  const [selected, setSelected] = useState("1-1")
-  const [modalVisible, setModalVisible] = useState(false)
-  const [grade, setGrade] = useState('')
-  const [classNum, setClassNum] = useState('')
+  const dispatch = useDispatch<AppDispatch>();
+  const { loading, success, error, items } = useSelector((state: RootState) => state.class || {});
+
+  const [classes, setClasses] = useState<any[]>([]);
+
+  const [modalVisible, setModalVisible] = useState(false);
+  const [grade, setGrade] = useState('');
+  const [classNum, setClassNum] = useState('');
+
+  const selectedClassId = useSelector(
+    (state: RootState) => state.class.selectedClassId
+  );
+
+
+  useEffect(() => {
+    dispatch(fetchClasses());
+  }, []);
+
+  useEffect(() => {
+    if (items && Array.isArray(items)) {
+      setClasses(items);
+    } else {
+      setClasses([]);
+    }
+  }, [items]);
+
+  useEffect(() => {
+    if (success) {
+      Alert.alert('성공', '새로운 반이 생성되었습니다!');
+      dispatch(fetchClasses());
+      setGrade('');
+      setClassNum('');
+      setModalVisible(false);
+      dispatch(resetStatus());
+    }
+    if (error) {
+      const errorMessage =
+        typeof error === 'string'
+          ? error
+          : (error as any)?.message || '알 수 없는 오류가 발생했습니다.';
+
+      Alert.alert('오류', errorMessage);
+      dispatch(resetStatus());
+    }
+  }, [success, error]);
+
+  const handleAddClass = () => {
+    if (!grade || !classNum) {
+      Alert.alert('알림', '학년과 반을 모두 입력해주세요.');
+      return;
+    }
+    dispatch(addClass({
+      grade: parseInt(grade, 10),
+      classNum: parseInt(classNum, 10)
+    }));
+  };
+
+  const renderItem = ({ item, drag, isActive }: any) => {
+    const itemId = item.classId;    
+    const isSelected = selectedClassId === itemId;
+
+    return (
+      <View
+        style={[
+          styles.shadowWrapper,
+          isActive && styles.dragging,
+        ]}
+      >
+        <Pressable
+          onLongPress={drag}
+          onPress={() => {            
+            dispatch(fetchClassDetail(itemId))
+          }}
+          style={[
+            styles.innerButton,
+            isSelected && styles.selectedInner,
+          ]}
+        >
+          <Text style={styles.classText}>
+            {item.grade}-{item.classNum}
+          </Text>
+        </Pressable>
+      </View>
+    )
+  }
 
   return (
-    <>
-      {/* 왼쪽 사이드바 */}
-      <View style={styles.sidebar}>
-        <View style={styles.classList}>
-          {/* 
-      - map으로 반 버튼 만들기 
-      - classes 배열을 하나씩 돌면서
-      - Pressable 버튼 자동 생성
-      */}
-          {classes.map((cls) => (
-            <Pressable
-              key={cls}
-              style={[
-                styles.classButton,
-                selected === cls && styles.selected,
-              ]}
-              onPress={() => setSelected(cls)}
-            >
-              <Text style={styles.classText}>{cls}</Text>
-            </Pressable>
-          ))}
-        </View>
+    <View style={styles.sidebar}>
+      <View style={{ flex: 1, width: '100%', alignItems: 'center' }}>
+        <DraggableFlatList
+          data={classes}
+          keyExtractor={(item, index) => String(item.classId)}
+          renderItem={renderItem}
+          onDragEnd={({ data }) => setClasses(data)}
+          contentContainerStyle={styles.classList}
+        />
+      </View>
 
-        {/* 학급 관리 버튼 */}
+      <View style={{ paddingBottom: 30 }}>
         <Pressable
           style={styles.manageButton}
           onPress={() => setModalVisible(true)}
         >
-          <Text>학급 관리</Text>
+          <Text style={styles.manageButtonText}>학급 관리</Text>
         </Pressable>
       </View>
 
-      {/* ============================================================================= */}
-
-      {/* 학급 관리 모달 */}
       <Modal
-        transparent             // 배경 투명
-        animationType='fade'    // 부드럽게 나타남
-        visible={modalVisible}  // true면 보임
-        onRequestClose={() => setModalVisible(false)} // 안드로이드 뒤로가기 대응
+        transparent
+        visible={modalVisible}
+        animationType="fade"
+        onRequestClose={() => setModalVisible(false)}
       >
-        {/* 모달 배경의 어두운 부분 */}
         <View style={styles.modalOverlay}>
-          {/* 실제 모달 박스 */}
           <View style={styles.modalBox}>
-            {/* 모달 제목 */}
-            <View style={styles.titleWrapper}>
-              <Text style={styles.modalTitle}>학급 관리</Text>
-            </View>
-
-            {/* 학년 입력 */}
+            <Text style={styles.modalTitle}>학급 관리</Text>
             <TextInput
-              placeholder="학년을 입력하세요."
+              placeholder="학년"
               value={grade}
-              onChangeText={setGrade} // 입력값을 grade 상태에 저장
+              onChangeText={setGrade}
               style={styles.input}
+              keyboardType="number-pad"
             />
-
-            {/* 반 입력 */}
             <TextInput
-              placeholder="반을 입력하세요."
+              placeholder="반"
               value={classNum}
-              onChangeText={setClassNum} // 입력값을 classNum 상태에 저장
+              onChangeText={setClassNum}
               style={styles.input}
+              keyboardType="number-pad"
             />
 
-            {/* 학급 추가 버튼 */}
-            <Pressable style={styles.modalButton}>
-              <Text style={styles.classButtonText}>학급 추가</Text>
-            </Pressable>
+            {loading ? (
+              <ActivityIndicator color="#CBB076" style={{ marginTop: 10 }} />
+            ) : (
+              <Pressable style={styles.modalButton} onPress={handleAddClass}>
+                <Text style={styles.btnText}>학급 추가</Text>
+              </Pressable>
+            )}
 
-            {/* 학급 삭제 버튼 */}
-            <Pressable style={styles.modalButton}>
-              <Text style={styles.classButtonText}>학급 삭제</Text>
-            </Pressable>
-
-            {/* 학급 비활성화 버튼 */}
-            <Pressable style={styles.modalButton}>
-              <Text style={styles.classButtonText}>학급 비활성화</Text>
-            </Pressable>
-
-            {/* 닫기 버튼 */}
             <Pressable
-              style={styles.closeButton}
-              onPress={() => setModalVisible(false)} // 모달 닫기
+              style={[styles.modalButton, { backgroundColor: '#8D7B68', marginTop: 10 }]}
+              onPress={() => setModalVisible(false)}
             >
-              <Text style={styles.closeText}>닫기</Text>
+              <Text style={[styles.btnText, { color: '#FFF' }]}>닫기</Text>
             </Pressable>
           </View>
         </View>
       </Modal>
-    </>
+    </View>
   )
 }
+
 export default LeftSidebar;
 
 const styles = StyleSheet.create({
-  // 사이드바 전체 영역 스타일
   sidebar: {
-    width: 120,
-    // 가로 너비
-    paddingVertical: 20,
-    // 위, 아래 안쪽 여백 (내용이 가장자리에 붙지 않게)
-    justifyContent: "space-between",
-    // 세로 방향으로
-    // 위에는 반 버튼, 아래는 학급 관리 버튼 배치
-    // 위, 아래 끝으로 벌려줌
-    backgroundColor: "#E7D7B5"
+    width: 140,
+    backgroundColor: "#EBE0CC",
+    height: '100%',
+    alignItems: 'center',
+    zIndex: 1,
   },
 
-  // 반 버튼 묶는 컨테이너
   classList: {
-    gap: 16,
-    // 버튼 사이 간격
-    // marginBottom을 하나하나 줄 필요 없이 자동 간격임
-    alignItems: "center",
-    // 가로 방향 가운데 정렬
-  },
-  // 클래스 글씨
-  classText: {
-    fontSize: 25,
-    fontWeight: '700',
-    color: '#270800',
+    paddingTop: 40,
+    paddingBottom: 20,
+    paddingHorizontal: 25,
+    alignItems: "center"
   },
 
-  // 기본 반 버튼
-  classButton: {
-    width: 70,
-    // 버튼 가로 크기
+  shadowWrapper: {
+    width: 90,
+    height: 90,
+    marginBottom: 20,
+    borderRadius: 30,
+    backgroundColor: '#FFFEF5',
 
-    height: 70,
-    // 버튼 세로 크기
+    elevation: 6,
+    shadowColor: "#000",
+    shadowOffset: { width: 0, height: 4 },
+    shadowOpacity: 0.15,
+    shadowRadius: 5,
+  },
 
-    borderRadius: 20,
-    // 둥근 모서리 만듦
-    // (width / 2) = 완전 원형!
-
-    borderWidth: 2,
-    // 테두리 두께
-
-    borderColor: "#270800",
-    // 테두리 색상
-
+  innerButton: {
+    width: '100%',
+    height: '100%',
+    borderRadius: 30,
     justifyContent: "center",
-    // 세로 방향 중앙 정렬
-
     alignItems: "center",
-    // 가로 방향 중앙 정렬
-
-    backgroundColor: "#FCFDEB"
-
+    backgroundColor: "#FFFEF5",
   },
 
-  // 선택된 반 버튼
-  selected: {
-    backgroundColor: "#E3CA92"
+  selectedInner: {
+    backgroundColor: "#DCC486",
   },
 
-  // '학급 관리' 버튼
+  dragging: {
+    opacity: 0.7,
+    transform: [{ scale: 1.05 }]
+  },
+
+  classText: {
+    fontSize: 28,
+    fontWeight: '800',
+    color: '#38220F',
+  },
+
   manageButton: {
-    alignSelf: "center",
-    // 부모(View) 기준으로 가로 가운데 정렬
-
-    padding: 15,
-    // 버튼 안쪽 여백 (텍스트가 너무 붙지 않게)
-
-    borderWidth: 2,
-    // 테두리 두께
-
-    borderColor: "#270800",
-    // 테두리 색상
-
+    width: 110,
+    height: 50,
+    backgroundColor: "#CBB076",
     borderRadius: 25,
-    backgroundColor: "#E3CA92"
-  },
-
-  // 모달 배경 (어두운 영역)
-  modalOverlay: {
-    flex: 1,
-    backgroundColor: 'rgba(0,0,0,0.4)',
     justifyContent: 'center',
     alignItems: 'center',
+
+    shadowColor: "#000",
+    shadowOffset: { width: 0, height: 3 },
+    shadowOpacity: 0.2,
+    shadowRadius: 3,
+    elevation: 5,
   },
 
-  // 모달 박스
-  modalBox: {
-    width: 300,
-    backgroundColor: '#F6F1E1',
-    borderRadius: 20,
-    padding: 20,
-    alignItems: 'center',
+  manageButtonText: {
+    fontSize: 18,
+    fontWeight: "700",
+    color: "#38220F",
   },
 
-  // 제목 배경 도형
-  titleWrapper: {
-    paddingHorizontal: 80,   // 좌우 여백 (도형 길이)
-    paddingVertical: 8,      // 위아래 여백 (도형 두께)
-    backgroundColor: '#685441', // 첫 번째 이미지 느낌의 진한 베이지/브라운
-    borderRadius: 30,        // 알약 모양
-    marginBottom: 20,
-  },
-
-  // 모달 제목 텍스트
-  modalTitle: {
-    fontSize: 25,
-    fontWeight: '700',
-    color: "#FFF",
-    textAlign: "center",
-  },
-
-  // 입력창
-  input: {
-    width: '100%',
-    borderWidth: 1,
-    borderColor: '#C4B28A',
-    borderRadius: 12,
-    padding: 10,
-    marginBottom: 10,
-    backgroundColor: '#FFF',
-  },
-
-  // 모달 내부 버튼
-  modalButton: {
-    width: '100%',
-    padding: 12,
-    borderRadius: 20,
-    backgroundColor: '#E3CA92',
-    alignItems: 'center',
-    marginTop: 8,
-  },
-
-  // 닫기 버튼
-  closeButton: {
-    marginTop: 14,
-    paddingVertical: 10,
-    paddingHorizontal: 30,
-    borderRadius: 20,
-    backgroundColor: '#685441',
-  },
-  // 닫기 텍스트
-  closeText: {
-    color: "#FFF",
-    fontWeight: 800,
-  },
-
-  classButtonText: {
-    color: "#52381F",
-    fontWeight: 500,
-    fontSize: 15,
-  }
-})
+  modalOverlay: { flex: 1, backgroundColor: 'rgba(0,0,0,0.4)', justifyContent: 'center', alignItems: 'center' },
+  modalBox: { width: 300, backgroundColor: '#FFFDF5', borderRadius: 20, padding: 30, alignItems: 'center', elevation: 10 },
+  modalTitle: { fontSize: 24, fontWeight: '700', marginBottom: 20, color: '#38220F' },
+  input: { width: '100%', height: 50, backgroundColor: '#F5F5F5', borderRadius: 12, paddingHorizontal: 15, marginBottom: 12, fontSize: 16 },
+  modalButton: { width: '100%', height: 50, borderRadius: 12, backgroundColor: '#DCC486', justifyContent: 'center', alignItems: 'center', marginTop: 10 },
+  btnText: { fontSize: 18, fontWeight: '700', color: '#38220F' }
+});
 ```
