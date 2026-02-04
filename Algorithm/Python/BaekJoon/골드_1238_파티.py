@@ -39,3 +39,4 @@ for i in range(1, N + 1):
     answer = max(answer, dist_from_X[i] + dist_to_X[i])
 
 print(answer)
+
