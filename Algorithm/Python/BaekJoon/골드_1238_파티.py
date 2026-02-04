@@ -1,40 +1,41 @@
-# 출결사항이 기록되는 출결은 출석, 지각, 결석이다.
-# 개근상을 받을 수 없는 사람은 지각을 두 번 이상 했거나, 결석을 세 번 연속으로 한 사람이다.
-# O를 출석, L을 지각, A를 결석
+import heapq
+INF = int(1e9)
 
-N = int(input())
-MOD = 1_000_000
+N, M, X = map(int, input().split())
 
-# dp[day][late][absent]
-dp = [[[0] * 3 for _ in range(2)] for _ in range(N + 1)]
-dp[0][0][0] = 1
+graph = [[] for _ in range(N + 1)]
+reverse_graph = [[] for _ in range(N + 1)]
 
-for day in range(N):
-    for late in range(2):
-        for absent in range(3):
-            cur = dp[day][late][absent]
-            if cur == 0:
-                continue
+for _ in range(M):
+    u, v, w = map(int, input().split())
+    graph[u].append((v, w))
+    reverse_graph[v].append((u, w))
 
-            # 1) 출석(O)
-            dp[day + 1][late][0] = (dp[day + 1][late][0] + cur) % MOD
+def dijkstra(start, graph):
+    dist = [INF] * (N + 1)
+    dist[start] = 0
+    pq = [(0, start)]
 
-            # 2) 지각(L) - 지각은 최대 1번
-            if late == 0:
-                dp[day + 1][1][0] = (dp[day + 1][1][0] + cur) % MOD
+    while pq:
+        cur_dist, cur = heapq.heappop(pq)
+        if dist[cur] < cur_dist:
+            continue
 
-            # 3) 결석(A) - 연속 결석 최대 2번
-            if absent < 2:
-                dp[day + 1][late][absent + 1] = (
-                    dp[day + 1][late][absent + 1] + cur
-                ) % MOD
+        for nxt, cost in graph[cur]:
+            new_dist = cur_dist + cost
+            if new_dist < dist[nxt]:
+                dist[nxt] = new_dist
+                heapq.heappush(pq, (new_dist, nxt))
+    return dist
 
-# 결과 합산
+# X -> 모든 마을
+dist_from_X = dijkstra(X, graph)
+
+# 모든 마을 -> X (역방향 그래프)
+dist_to_X = dijkstra(X, reverse_graph)
+
 answer = 0
-for late in range(2):
-    for absent in range(3):
-        answer = (answer + dp[N][late][absent]) % MOD
+for i in range(1, N + 1):
+    answer = max(answer, dist_from_X[i] + dist_to_X[i])
 
 print(answer)
-
-
