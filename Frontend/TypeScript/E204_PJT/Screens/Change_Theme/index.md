@@ -1,3 +1,4 @@
+```tsx
 import React, { useState, useMemo, useRef, useEffect } from 'react';
 import {
   View,
@@ -392,3 +393,4 @@ const styles = StyleSheet.create({
     marginBottom: 12,
   },
 });
+```
