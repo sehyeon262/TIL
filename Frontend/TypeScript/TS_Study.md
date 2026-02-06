@@ -351,3 +351,4 @@ if (day === DAY.SUNDAY || day === DAY.SATURDAY) {
 }
 ```
 - `getDay()` 함수를 이용해서 요일을 반환 후 (0-6 반환하며 0이 일요일) 위와 같은 방식으로 enum을 정의해서 사용할 수 있음
+
