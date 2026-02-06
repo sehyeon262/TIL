@@ -313,4 +313,41 @@ console.log(`${year}-${month}-${date}`)
 ```
 - month만 1을 더해줌 => `getMonth()` 함수가 0-11의 값을 반환하기 때문
 - get 뒤에 UTC를 붙이면 현지 시간이 아닌 국제시간을 기준으로 시간을 반환하여 사용할 수 있음
- 
+
+
+### 응용: 00-31 두자리 날짜형식 표시, 0 넣기 (javascript, typescript)
+
+- 위 코드를 실행해보면 뭔가 예쁘게 나오지 않습니다. 2023-1-5 이런식으로 나오기 때문입니다. 그래서 이를 예쁘게 두자리로 맞춰봄
+
+```ts
+function getFullDate(delimiter: string, year: number, month: number, date: number): string {
+    return `${year}${delimiter}${month.toString().padStart(2, '0')}${delimiter}${date.toString().padStart(2, '0')}`
+}
+
+// 2023-01-05
+console.log(getFullDate("-", year, month, date));
+```
+- padStart 라는 메소드를 이용해서 두자리 날짜형식으로 맞추되 빈 부분은 0으로 채워넣도록 함.
+
+
+### 요일
+- 요일 정보를 얻어서 사용해야할 때도 있음
+```ts
+enum DAY {
+    SUNDAY,
+    MONDAY,
+    TUESDAY,
+    WEDNESDAY,
+    THURSDAY,
+    FRIDAY,
+    SATURDAY
+};
+
+const day: number = today.getDay();
+if (day === DAY.SUNDAY || day === DAY.SATURDAY) {
+    console.log("쉬는 날");
+} else {
+    console.log("출근 하는 날 ㅠㅠ")
+}
+```
+- `getDay()` 함수를 이용해서 요일을 반환 후 (0-6 반환하며 0이 일요일) 위와 같은 방식으로 enum을 정의해서 사용할 수 있음
