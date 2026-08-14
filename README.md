@@ -1,74 +1,60 @@
-# 📘 TIL (Today I Learned)
+# TIL — 학습을 코드와 기록으로 검증하는 개발 아카이브
 
-#### 하루하루 배운 개념, 코드, 문제풀이, 프로젝트 경험 등을 체계적으로 기록하며 성장하는 것이 목표입니다.
+> 개념을 이해하는 데서 멈추지 않고, 직접 구현하고 기록하며  
+> 재사용 가능한 지식으로 정리하는 것을 목표로 합니다.
 
-
----
-
-
-## ⭐ What This Repository Shows
-
-### ✓ 꾸준한 자기주도 학습 능력
-- 매일 또는 주기적으로 배운 내용을 정리하며 습관화된 학습 유지
-
-- 단순 기록이 아닌, 이해·실습·회고 중심의 정리 방식
-
-### ✓ 기초 기술 역량의 탄탄한 기반
-- Python / Java / Vue / Django / 알고리즘 등 백엔드 & 프론트엔드 전반 학습
-- 기초 문법뿐만 아니라 실습 코드 중심의 이해 기반 성장
-
-### ✓ 문제 해결 능력
-- 알고리즘 문제 풀이를 통해 논리적 사고 및 구현 능력 강화
-
-- 프로젝트 기록을 통해 실제 요구사항 분석 → 설계 → 구현 과정을 경험
-
-
-### ✓ 정돈된 Git 관리 능력
-- 일관된 커밋 메시지 규칙
-
-- 디렉토리 구조 정리
-
-- 깔끔하고 이해하기 쉬운 README 구성
-
+CS 기초부터 Java, 웹 프론트엔드, 백엔드, DevOps까지 학습한 내용을  
+개념 노트와 실습 코드로 축적하고 있습니다.
 
 ---
 
+## What I Learn
 
-## 📂 Repository Structure
-학습이 진행됨에 따라 지속적으로 확장됩니다.
-
-### 🔹 Algorithm
-
-### 🔹 Java
-
-### 🔹 Vue
-
-### 🔹 관통_PJT
-
+| 분야 | 학습 내용 |
+| --- | --- |
+| [CS](./CS) | 운영체제, 네트워크, 웹, 데이터베이스, 보안, 시스템 설계, 자료구조 |
+| [Java](./Java) | Java 기초 문법, 객체지향, 문제 해결, 알고리즘 |
+| [Frontend](./Frontend) | React, React Native, TypeScript, Vue, HTTP |
+| [Backend](./Backend) | Spring, Spring Boot, JPA, MVC 패턴 |
+| [DevOps](./DevOps) | Docker, CI/CD, 온프레미스와 클라우드 |
 
 ---
 
+## Repository Structure
 
-## ⚙️ Tech Stack
-| 분야       | 기술                           |
-| -------- | ---------------------------- |
-| Language | Python, Java                 |
-| Frontend | Vue 3, HTML, CSS, JavaScript |
-| Backend  | Django, DRF                  |
-| Database | MySQL, SQLite                |
-| Tools    | Git, GitHub, VSCode, Postman |
-
+```text
+TIL/
+├─ CS/
+│  ├─ operating-system/
+│  ├─ network/
+│  ├─ web/
+│  ├─ database/
+│  ├─ security/
+│  ├─ system-design/
+│  ├─ programming/
+│  └─ data-structure/
+│
+├─ Java/
+│  ├─ 00. SecondBrain/
+│  ├─ 01. Java_기본/
+│  ├─ 02. SW문제해결기본/
+│  └─ 03. SW문제해결응용/
+│  └─ ...
+│
+├─ Frontend/
+│  ├─ Web/
+│  ├─ React/
+│  ├─ React_Native/
+│  ├─ TypeScript/
+│  └─ Vue/
+│
+├─ Backend/
+├─ DevOps/
+└─ README.md
+```
 
 ---
 
-
-## 🎯 Learning Goals
-- SSAFY 교육 과정 전반을 체계적으로 정리
-
-- 언어 / 웹 / 알고리즘 / 프로젝트 역량 균형 있게 성장
-
-- 꾸준한 기록을 통해 학습의 방향성과 깊이 확보
-
-- 실무 대비 풀스택 개발 능력 강화
-
-- 기록 기반의 성장형 개발자로 발전하기
+## Goal
+꾸준한 기록을 통해 단편적인 지식을 연결하고,
+문제를 구조적으로 이해하고 해결하는 개발자로 성장합니다.
