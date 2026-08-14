@@ -15,7 +15,6 @@ CS 기초부터 Java, 웹 프론트엔드, DevOps까지 학습한 내용을
 | [CS](./CS) | 운영체제, 네트워크, 웹, 데이터베이스, 보안, 시스템 설계, 자료구조, 백엔드 기술 |
 | [Java](./Java) | Java 기초 문법, 객체지향, 문제 해결, 알고리즘 |
 | [Frontend](./Frontend) | React, React Native, TypeScript, Vue, HTTP |
-| [DevOps](./DevOps) | Docker, CI/CD, 온프레미스와 클라우드 |
 
 ---
 
@@ -48,7 +47,6 @@ TIL/
 │  ├─ TypeScript/
 │  └─ Vue/
 │
-├─ DevOps/
 └─ README.md
 ```
 
