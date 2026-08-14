@@ -21,4 +21,8 @@ venv/
 # 로그
 *.log
 
-
+.env
+*.sqlite3
+*.class
+node_modules/
+dist/
